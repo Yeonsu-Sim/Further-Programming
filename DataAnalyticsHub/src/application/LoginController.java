@@ -14,7 +14,7 @@ import javafx.fxml.FXMLLoader;
 
 public class LoginController {
 	
-	// private Stage stage;
+	private Stage stage;
 	private User user;
 
 	@FXML
@@ -46,6 +46,9 @@ public class LoginController {
 			if (message.contains("Successfully")) {
 				loginMessage.setTextFill(Color.BLACK);
 				
+				// view Dashboard Vies
+				DashboardController dashboardController = new DashboardController();
+				dashboardController.view(this.getStage());
 			} 
 			else {
 				username.setText("");
@@ -63,14 +66,14 @@ public class LoginController {
 		
 	}
 
-	// public void setStage(Stage stage) {
-	// 	this.stage = stage;
-	// }
+	 public void setStage(Stage stage) { this.stage = stage; }
+	 public Stage getStage() { return this.stage; }
 
 	public void view(Stage stage) {
 		try {  // load Login View
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
+			this.setStage(stage);
 			VBox root = loader.load();
 		
 			Scene scene = new Scene(root);
