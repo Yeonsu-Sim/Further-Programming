@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 public class LoginController {
 	
 	private Stage stage;
-	private User user;
 
 	@FXML
 	private TextField username;
@@ -35,7 +34,7 @@ public class LoginController {
 	@FXML
 	public void initialize() {
 		
-		user = new User();
+		User user = new User();
 		user.initialize();  // make "users" table in DB
 		
 		btn.setOnAction(e -> {

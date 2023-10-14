@@ -31,13 +31,15 @@ public class SignupController {
 	
 	@FXML
 	public void initialize() {
+
+		User user = new User();
+		
 		btn.setOnAction(e -> {
 			String id = username.getText();
 			String pw = password.getText();
 			String fname = firstname.getText();
 			String lname = lastname.getText();
 			
-			User user = new User();
 			try {
 				user.signup(id, pw, fname, lname);
 				
