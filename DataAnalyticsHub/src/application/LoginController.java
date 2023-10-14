@@ -36,6 +36,7 @@ public class LoginController {
 	public void initialize() {
 		
 		user = new User();
+		user.initialize();  // make "users" table in DB
 		
 		btn.setOnAction(e -> {
 			String id = username.getText();
@@ -45,6 +46,8 @@ public class LoginController {
 			loginMessage.setText(message);
 			if (message.contains("Successfully")) {
 				loginMessage.setTextFill(Color.BLACK);
+				
+				System.out.println("Successfully logged in.");
 				
 				// view Dashboard Vies
 				DashboardController dashboardController = new DashboardController();
@@ -60,7 +63,8 @@ public class LoginController {
 		});
 		
 		signup.setOnMousePressed(e -> {
-			
+			SignupController signupController = new SignupController();
+			signupController.view();
 		});
 		
 		
