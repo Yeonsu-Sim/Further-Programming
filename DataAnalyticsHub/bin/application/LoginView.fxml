@@ -12,15 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="50.0">
+      <Pane prefHeight="30.0" prefWidth="300.0">
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <children>
-            <Label fx:id="loginMessage" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="17.0" prefHeight="38.0" prefWidth="250.0" text="Please insert your Username and Password." textAlignment="CENTER" wrapText="true">
+            <Label fx:id="loginMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="-3.0" prefHeight="38.0" prefWidth="250.0" text="Please insert your Username and Password." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>

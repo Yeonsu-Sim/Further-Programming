@@ -5,12 +5,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.fxml.FXMLLoader;
 
 public class LoginController {
 	
-	private Stage stage;
+	// private Stage stage;
 	private User user;
 
 	@FXML
@@ -59,7 +63,22 @@ public class LoginController {
 		
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	// public void setStage(Stage stage) {
+	// 	this.stage = stage;
+	// }
+
+	public void view(Stage stage) {
+		try {  // load Login View
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			loader.setController(this);
+			VBox root = loader.load();
+		
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("Login view");
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

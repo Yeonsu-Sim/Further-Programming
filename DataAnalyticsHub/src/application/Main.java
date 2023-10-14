@@ -12,16 +12,20 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
-			LoginController loginController = new LoginController();
-			loginController.setStage(primaryStage);
-			loader.setController(loginController);
-			VBox root = loader.load();
+			// FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			// LoginController loginController = new LoginController();
+			// loginController.setStage(primaryStage);
+			// loader.setController(loginController);
+			// VBox root = loader.load();
 			
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Login view");
-			primaryStage.show();
+			// Scene scene = new Scene(root);
+			// primaryStage.setScene(scene);
+			// primaryStage.setTitle("Login view");
+			// primaryStage.show();
+
+			LoginController loginController = new LoginController();
+			loginController.view(primaryStage);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
