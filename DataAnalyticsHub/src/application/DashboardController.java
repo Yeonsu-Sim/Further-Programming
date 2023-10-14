@@ -14,13 +14,21 @@ import javafx.fxml.FXMLLoader;
 
 public class DashboardController {
 	
+	Stage stage;
 	
-
+	@FXML
+	public void initialize() {
+		
+	}
+	
+	public void setStage(Stage stage) { this.stage = stage; }
+	public Stage getStage() { return this.stage; }
 	
 	public void view(Stage stage) {
 		try {  // load Dashboard View
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardView.fxml"));
 			loader.setController(this);
+			this.setStage(stage);
 			BorderPane root = loader.load();
 		
 			Scene scene = new Scene(root);

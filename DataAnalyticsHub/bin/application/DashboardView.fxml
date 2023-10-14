@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
 <?import javafx.scene.layout.BorderPane?>
-	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
-	<!-- TODO Add Nodes -->
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1">
+   <center>
+      <BorderPane prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
