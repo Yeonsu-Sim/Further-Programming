@@ -63,24 +63,76 @@ public class DatabaseModel {
             return false;
         }
 	}
-
-	public String getPassword(String tname, String username) {
-		String sql = "SELECT password FROM "+ tname +" WHERE username = ?";
-		String password = "";
+	
+	public String getElement(String tname, String element, String username) {
+		String sql = "SELECT "+ element +" FROM "+ tname +" WHERE username = '" + username + "'";
+		String value = "";
 		
-        try (Connection con = this.connect();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
-            
-            password = rs.getString(1);
-            return password;
+		try (Connection con = this.connect();
+        		Statement stmt = con.createStatement();) {	
+	    	// get element by username
+	    	ResultSet rs = stmt.executeQuery(sql);
+	    	value = rs.getString(1);
+	    	return value;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        	System.out.println(e.getMessage());
         }
-		return password;
+		return value;
 	}
+	
+//	public String getPassword(String tname, String username) {
+//		String sql = "SELECT password FROM "+ tname +" WHERE username = ?";
+//		String password = "";
+//		
+//        try (Connection con = this.connect();
+//             PreparedStatement pstmt = con.prepareStatement(sql)) {
+//            
+//            pstmt.setString(1, username);
+//            ResultSet rs = pstmt.executeQuery();
+//            
+//            password = rs.getString(1);
+//            return password;
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//		return password;
+//	}
+//	
+//	public String getFirstName(String tname, String username) {
+//		String sql = "SELECT firstname FROM "+ tname +" WHERE username = ?";
+//		String firstname = "";
+//		
+//        try (Connection con = this.connect();
+//             PreparedStatement pstmt = con.prepareStatement(sql)) {
+//            
+//            pstmt.setString(1, username);
+//            ResultSet rs = pstmt.executeQuery();
+//            
+//            firstname = rs.getString(1);
+//            return firstname;
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//		return firstname;
+//	}
+//	
+//	public String getLastName(String tname, String username) {
+//		String sql = "SELECT lastname FROM "+ tname +" WHERE username = ?";
+//		String lastname = "";
+//		
+//        try (Connection con = this.connect();
+//             PreparedStatement pstmt = con.prepareStatement(sql)) {
+//            
+//            pstmt.setString(1, username);
+//            ResultSet rs = pstmt.executeQuery();
+//            
+//            lastname = rs.getString(1);
+//            return lastname;
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//		return lastname;
+//	}
 	
 	public void insert(String tname, String[] elements) {
 

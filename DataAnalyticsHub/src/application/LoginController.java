@@ -48,6 +48,9 @@ public class LoginController {
 				loginMessage.setTextFill(Color.BLACK);
 				
 				System.out.println("Successfully logged in.");
+				user.setUserName(id);
+				user.setPassword(pw);
+				user.setName();
 				
 				// view Dashboard Vies
 				DashboardController dashboardController = new DashboardController(user);

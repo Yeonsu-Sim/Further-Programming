@@ -38,7 +38,7 @@ public class User {
 	
 	public String login(String id, String pw) {
 		if (db.exist(tname,"username", id)) {
-			if (db.getPassword(tname,id).equals(pw))
+			if (db.getElement(tname,"password",id).equals(pw))
 				return "Successfully loged in.";
 			return "Wrong Password. Please try agin";
 		}
@@ -65,6 +65,11 @@ public class User {
 	
 		String[] elements = {id, pw, fname, lname};
 		db.insert(tname, elements);
+	}
+	
+	public void setName() {
+		this.setFirstName(db.getElement(tname, "firstname", this.username));
+		this.setLastName(db.getElement(tname, "lastname", this.username));
 	}
 	
 	public String getUserName() { return this.username; }
