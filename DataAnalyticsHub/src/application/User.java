@@ -4,11 +4,11 @@ import java.sql.*;
 import java.util.regex.Pattern;
 
 public class User {
-	private DatabaseModel db;
-	private String username;
-	private String password;
-	private String firstname;
-	private String lastname;
+	private static DatabaseModel db;
+	private static String username;
+	private static String password;
+	private static String firstname;
+	private static String lastname;
 	private final String tname = "users";
 
 	

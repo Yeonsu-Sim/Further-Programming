@@ -15,6 +15,10 @@ import javafx.fxml.FXMLLoader;
 public class LoginController {
 	
 	private Stage stage;
+	private User user;
+	
+	public LoginController(User user) { this.user = user; }
+	public User getUser() { return this.user; } 
 
 	@FXML
 	private TextField username;
@@ -34,9 +38,6 @@ public class LoginController {
 	@FXML
 	public void initialize() {
 		
-		User user = new User();
-		user.initialize();  // make "users" table in DB
-		
 		btn.setOnAction(e -> {
 			String id = username.getText();
 			String pw = password.getText();
@@ -49,7 +50,7 @@ public class LoginController {
 				System.out.println("Successfully logged in.");
 				
 				// view Dashboard Vies
-				DashboardController dashboardController = new DashboardController();
+				DashboardController dashboardController = new DashboardController(user);
 				dashboardController.view(this.getStage());
 			} 
 			else {
@@ -62,7 +63,7 @@ public class LoginController {
 		});
 		
 		signup.setOnMousePressed(e -> {
-			SignupController signupController = new SignupController();
+			SignupController signupController = new SignupController(user);
 			signupController.view();
 		});
 		

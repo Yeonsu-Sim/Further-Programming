@@ -14,7 +14,11 @@ import javafx.fxml.FXMLLoader;
 
 public class DashboardController {
 	
-	Stage stage;
+	private Stage stage;
+	private User user;
+	
+	public DashboardController(User user) { this.user = user; }
+	public User getUser() { return this.user; }
 	
 	@FXML
 	public void initialize() {

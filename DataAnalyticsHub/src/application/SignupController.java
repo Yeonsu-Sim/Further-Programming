@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 public class SignupController {
 	
 	private Stage stage;
+	private User user;
+	
+	public SignupController(User user) { this.user = user; }
+	public User getUer() { return this.user; }
 	
 	@FXML
 	private TextField username;
@@ -31,8 +35,6 @@ public class SignupController {
 	
 	@FXML
 	public void initialize() {
-
-		User user = new User();
 		
 		btn.setOnAction(e -> {
 			String id = username.getText();

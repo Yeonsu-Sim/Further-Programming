@@ -11,7 +11,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			LoginController loginController = new LoginController();
+			User user = new User();
+			user.initialize();  // make "users" table in DB
+			LoginController loginController = new LoginController(user);
 			loginController.view(primaryStage);
 
 		} catch(Exception e) {
