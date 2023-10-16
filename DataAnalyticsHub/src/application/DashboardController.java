@@ -26,6 +26,8 @@ public class DashboardController {
 	@FXML
 	private Button addPostBtn;
 	@FXML
+	private Button logOutBtn;
+	@FXML
 	private Label addPostMessage;
 	
 	public DashboardController(User user) { this.user = user; }
@@ -33,7 +35,6 @@ public class DashboardController {
 	
 	@FXML
 	public void initialize() {
-		System.out.println("Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
 		
 		firstname.setText(user.getFirstName());
 		lastname.setText(user.getLastName());
@@ -42,6 +43,13 @@ public class DashboardController {
 		modifyInfoBtn.setOnAction(e -> {
 			ModifyInfoController modifyInfoController = new ModifyInfoController(this.user);
 			modifyInfoController.view(this.stage);
+		});
+		
+		logOutBtn.setOnAction(e -> {
+			user.logout();
+			LoginController loginController = new LoginController(this.user);
+			loginController.view(this.stage);
+			
 		});
 		
 		addPostBtn.setOnAction(e -> {
