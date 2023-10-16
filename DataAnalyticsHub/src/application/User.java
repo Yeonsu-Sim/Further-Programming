@@ -33,7 +33,15 @@ public class User {
 		db.createNewTable(tname, columns);
 	
 		// add "admin" to the "users" table
-		this.signup("admin", "pass", "Yeonsu", "Sim");
+		String[] elements = {
+				Integer.toString(makeNumber++), 
+				"admin", 
+				"pass", 
+				"Yeonsu", 
+				"Sim", 
+				"-"
+		};
+		db.insert(tname, elements);
 	}
 	
 	public String login(String id, String pw) {
@@ -69,12 +77,32 @@ public class User {
 		db.insert(tname, elements);
 	}
 	
+	public void modify(String num, String id, String pw, String fname, String lname, String vip) {		
+		
+		if (db.exist(tname, "username", id) && !id.equals(this.username))
+			throw new InvalidUserNameException("This Username already exist.");
+		else if (id.equals(""))
+			throw new InvalidUserNameException("Please insert a valid Username.");
+		else if (pw.equals(""))
+			throw new InvalidPasswordException("Please insert a valid Password.");
+		else if (fname.equals(""))
+			throw new InvalidFirstNameException("Please insert a valid First name");
+		else if (lname.equals(""))
+			throw new InvalidLastNameException("Please insert a valid Last name");
+		
+		String[] columns = {"number", "username", "password", "firstname", "lastname", "vip"};
+		String[] elements = {num, id, pw, fname,lname, vip};
+		db.update(tname, columns, elements);
+		
+		this.setInfo(id);
+	}
+	
 	public void setInfo(String username) {
 		this.setUserName(username);
+		this.setNumber(db.getElement(tname, "number", username));
 		this.setPassword(db.getElement(tname, "password", username));
 		this.setFirstName(db.getElement(tname, "firstname", username));
 		this.setLastName(db.getElement(tname, "lastname", username));
-		this.setNumber(db.getElement(tname, "number", username));
 		this.setVip(db.getElement(tname, "vip", username));
 	}
 	

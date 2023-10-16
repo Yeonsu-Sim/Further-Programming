@@ -93,13 +93,28 @@ public class DatabaseModel {
         		Statement stmt = con.createStatement();) {	
 	    	// create a new table
 	    	stmt.execute(sql);
-	    	System.out.println("DB is Successfully initialized.");
+	    	System.out.println("Successfully inserted to DB.");
         } catch (SQLException e) {
         	System.out.println(e.getMessage());
         }
 	}
 	
-	public void update() {
+	public void update(String tname, String[] columns, String[] elements) {
+		
+		// SQL statement for updating a value
+		String sql = "UPDATE "+tname+" SET ";
+		for (int i=1; i<elements.length-1; i++)
+			sql = sql + columns[i]+"='"+elements[i]+"', ";
+		sql = sql + columns[columns.length-1]+"='"+elements[elements.length-1]+"' WHERE "+columns[0]+"="+elements[0];
+        
+        try (Connection con = this.connect();
+        		Statement stmt = con.createStatement();) {	
+	    	// create a new table
+	    	stmt.execute(sql);
+	    	System.out.println("DB is successfully updated.");
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
 		
 	}
 	

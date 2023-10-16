@@ -40,7 +40,8 @@ public class DashboardController {
 		
 		
 		modifyInfoBtn.setOnAction(e -> {
-			
+			ModifyInfoController modifyInfoController = new ModifyInfoController(this.user);
+			modifyInfoController.view(this.stage);
 		});
 		
 		addPostBtn.setOnAction(e -> {
