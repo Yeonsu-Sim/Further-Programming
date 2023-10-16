@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -16,6 +17,8 @@ public class DashboardController {
 	
 	private Stage stage;
 	private User user;
+	private SocialMedia sns;
+	private final String CSVpath = "/db/posts.csv";
 	
 	@FXML
 	private Label firstname;
@@ -24,17 +27,37 @@ public class DashboardController {
 	@FXML
 	private Button modifyInfoBtn;
 	@FXML
-	private Button addPostBtn;
-	@FXML
 	private Button logOutBtn;
 	@FXML
+	private Button addPostBtn;
+	@FXML
 	private Label addPostMessage;
+	@FXML 
+	private TextField postId;
+	@FXML 
+	private TextField author;
+	@FXML 
+	private TextArea content;
+	@FXML 
+	private TextField likes;
+	@FXML 
+	private TextField shares;
+	@FXML 
+	private TextField date_time;
+
+	
 	
 	public DashboardController(User user) { this.user = user; }
 	public User getUser() { return this.user; }
 	
 	@FXML
 	public void initialize() {
+		
+		try {
+			sns = new SocialMedia(CSVpath);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		firstname.setText(user.getFirstName());
 		lastname.setText(user.getLastName());
@@ -53,6 +76,25 @@ public class DashboardController {
 		});
 		
 		addPostBtn.setOnAction(e -> {
+			try {
+				sns.addPost(postId.getText(), content.getText(), author.getText(), likes.getText(), shares.getText(), date_time.getText());
+				
+				postId.setText("");
+				content.setText("");
+				author.setText("");
+				likes.setText("");
+				shares.setText("");
+				date_time.setText("");
+			
+				addPostMessage.setTextFill(Color.BLACK);
+				addPostMessage.setText("Fill the blanks below if you want to add a new post.");
+				
+			} catch (InvalidAttributeException e1) {
+				addPostMessage.setTextFill(Color.RED);
+				addPostMessage.setText(e1.getMessage());
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
 			
 		});
 		
