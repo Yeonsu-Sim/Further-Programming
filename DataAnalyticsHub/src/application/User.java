@@ -30,8 +30,8 @@ public class User {
 		String[] elements = {
 			"admin",
 			"pass",
-			"yeonsu",
-			"sim"
+			"Yeonsu",
+			"Sim"
 		};
 		db.insert(tname, elements);
 	}

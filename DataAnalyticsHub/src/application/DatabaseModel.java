@@ -80,60 +80,6 @@ public class DatabaseModel {
 		return value;
 	}
 	
-//	public String getPassword(String tname, String username) {
-//		String sql = "SELECT password FROM "+ tname +" WHERE username = ?";
-//		String password = "";
-//		
-//        try (Connection con = this.connect();
-//             PreparedStatement pstmt = con.prepareStatement(sql)) {
-//            
-//            pstmt.setString(1, username);
-//            ResultSet rs = pstmt.executeQuery();
-//            
-//            password = rs.getString(1);
-//            return password;
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//		return password;
-//	}
-//	
-//	public String getFirstName(String tname, String username) {
-//		String sql = "SELECT firstname FROM "+ tname +" WHERE username = ?";
-//		String firstname = "";
-//		
-//        try (Connection con = this.connect();
-//             PreparedStatement pstmt = con.prepareStatement(sql)) {
-//            
-//            pstmt.setString(1, username);
-//            ResultSet rs = pstmt.executeQuery();
-//            
-//            firstname = rs.getString(1);
-//            return firstname;
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//		return firstname;
-//	}
-//	
-//	public String getLastName(String tname, String username) {
-//		String sql = "SELECT lastname FROM "+ tname +" WHERE username = ?";
-//		String lastname = "";
-//		
-//        try (Connection con = this.connect();
-//             PreparedStatement pstmt = con.prepareStatement(sql)) {
-//            
-//            pstmt.setString(1, username);
-//            ResultSet rs = pstmt.executeQuery();
-//            
-//            lastname = rs.getString(1);
-//            return lastname;
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//		return lastname;
-//	}
-	
 	public void insert(String tname, String[] elements) {
 
 		// SQL statement for inserting a value
@@ -160,4 +106,5 @@ public class DatabaseModel {
 	public void update() {
 		
 	}
+	
 }

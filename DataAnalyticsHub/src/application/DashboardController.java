@@ -17,11 +17,33 @@ public class DashboardController {
 	private Stage stage;
 	private User user;
 	
+	@FXML
+	private Label firstname;
+	@FXML
+	private Label lastname;
+	@FXML
+	private Button modifyInfoBtn;
+	@FXML
+	private Button addPostBtn;
+	
 	public DashboardController(User user) { this.user = user; }
 	public User getUser() { return this.user; }
 	
 	@FXML
 	public void initialize() {
+		System.out.println("Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
+		
+		firstname.setText(user.getFirstName());
+		lastname.setText(user.getLastName());
+		
+		
+		modifyInfoBtn.setOnAction(e -> {
+			
+		});
+		
+		addPostBtn.setOnAction(e -> {
+			
+		});
 		
 	}
 	
