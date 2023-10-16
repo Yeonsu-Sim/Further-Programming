@@ -41,6 +41,7 @@ public class LoginController {
 		btn.setOnAction(e -> {
 			String id = username.getText();
 			String pw = password.getText();
+			
 			String message = user.login(id,pw);
 			
 			loginMessage.setText(message);
@@ -48,9 +49,6 @@ public class LoginController {
 				loginMessage.setTextFill(Color.BLACK);
 				
 				System.out.println("Successfully logged in.");
-				user.setUserName(id);
-				user.setPassword(pw);
-				user.setName();
 				
 				// view Dashboard Vies
 				DashboardController dashboardController = new DashboardController(user);

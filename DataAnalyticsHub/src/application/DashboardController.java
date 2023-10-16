@@ -25,6 +25,8 @@ public class DashboardController {
 	private Button modifyInfoBtn;
 	@FXML
 	private Button addPostBtn;
+	@FXML
+	private Label addPostMessage;
 	
 	public DashboardController(User user) { this.user = user; }
 	public User getUser() { return this.user; }

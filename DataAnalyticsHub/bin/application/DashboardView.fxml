@@ -108,7 +108,7 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Timeline">
+          <Tab text="Posts">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -118,8 +118,12 @@
                                  <children>
                                     <TableView layoutX="4.0" layoutY="4.0" prefHeight="426.0" prefWidth="456.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
+                                        <TableColumn prefWidth="60.0" text="Post ID" />
+                                        <TableColumn prefWidth="60.0" text="Author" />
+                                          <TableColumn prefWidth="120.0" text="Content" />
+                                          <TableColumn prefWidth="50.0" text="Likes" />
+                                          <TableColumn prefWidth="50.0" text="Shares" />
+                                          <TableColumn prefWidth="100.0" text="Date_Time" />
                                       </columns>
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -141,6 +145,11 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
+            <Tab text="Sort">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
             <Tab text="VIP">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />

@@ -64,6 +64,7 @@ public class DatabaseModel {
         }
 	}
 	
+	// Get value of element by username
 	public String getElement(String tname, String element, String username) {
 		String sql = "SELECT "+ element +" FROM "+ tname +" WHERE username = '" + username + "'";
 		String value = "";
@@ -96,11 +97,6 @@ public class DatabaseModel {
         } catch (SQLException e) {
         	System.out.println(e.getMessage());
         }
-	}
-	
-	public void delete() {
-		String sql = "DELETE password FROM users WHERE username = ?";
-		
 	}
 	
 	public void update() {
