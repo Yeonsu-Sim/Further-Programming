@@ -13,9 +13,6 @@ public class User {
 	private static String vip;
 	private final String tname = "users";
 	
-	private static int makeNumber = 0;
-
-	
 	public User() {
 		db = new DatabaseModel();
 	}
@@ -34,7 +31,7 @@ public class User {
 	
 		// add "admin" to the "users" table
 		String[] elements = {
-				Integer.toString(makeNumber++), 
+				"0", 
 				"admin", 
 				"pass", 
 				"Yeonsu", 
@@ -72,8 +69,10 @@ public class User {
 			throw new InvalidFirstNameException("Please insert a valid First name");
 		else if (lname.equals(""))
 			throw new InvalidLastNameException("Please insert a valid Last name");
+		
+		int lastNumber = Integer.parseInt(db.getLastElement(tname, "number")); 
 	
-		String[] elements = {Integer.toString(makeNumber++), id, pw, fname, lname, "-"};
+		String[] elements = {Integer.toString(++lastNumber), id, pw, fname, lname, "-"};
 		db.insert(tname, elements);
 	}
 	

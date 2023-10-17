@@ -115,7 +115,21 @@ public class DatabaseModel {
         } catch (SQLException e) {
         	System.out.println(e.getMessage());
         }
-		
+	}
+	
+	public String getLastElement(String tname, String column) {
+		// SQL statement for getting a lately added value
+		String value = "";
+		String sql = "SELECT "+column+" FROM "+tname+" ORDER BY rowid DESC LIMIT 1;";
+		try (Connection con = this.connect();
+        		Statement stmt = con.createStatement();) {	
+	    	// create a new table
+	    	ResultSet rs = stmt.executeQuery(sql);
+	    	value = rs.getString(1);
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
+		return value;
 	}
 	
 }
