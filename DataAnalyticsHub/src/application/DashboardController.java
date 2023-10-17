@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -28,6 +30,7 @@ public class DashboardController {
 	private Stage stage;
 	private User user;
 	private SocialMedia sns;
+	private TableView postsTable;
 	private final String CSVpath = "/db/posts.csv";
 	
 	@FXML
@@ -38,6 +41,7 @@ public class DashboardController {
 	private Button modifyInfoBtn;
 	@FXML
 	private Button logOutBtn;
+	
 	@FXML
 	private Button addPostBtn;
 	@FXML
@@ -54,12 +58,26 @@ public class DashboardController {
 	private TextField shares;
 	@FXML 
 	private TextField date_time;
+	
 	@FXML
 	private ScrollPane Posts;
 	@FXML
 	private Tab postsTab;
 	@FXML
 	private Button sortBtn;
+	@FXML
+	private MenuButton orderMenu;
+	@FXML
+	private MenuItem likesItem;
+	@FXML
+	private MenuItem sharesItem;
+	@FXML
+	private MenuItem resetSortMenuItem;
+	@FXML
+	private TextField sortCount;
+	@FXML 
+	private Label sortMessage;
+	
 	@FXML
 	private ScrollPane Search;
 	@FXML
@@ -68,11 +86,11 @@ public class DashboardController {
 	private Button searchBtn;
 	@FXML
 	private Button deleteBtn;
+	
 	@FXML
 	private ScrollPane VIP;
 	@FXML
 	private Tab vipTab;
-
 	
 	
 	public DashboardController(User user) { this.user = user; }
@@ -92,7 +110,7 @@ public class DashboardController {
 		lastname.setText(user.getLastName());
 		
 		// make table
-		TableView<Post> postsTable = makeTableView(sns.getPosts());
+		postsTable = makeTableView(sns.getPosts());
 		Posts.setContent(postsTable);  // Display table
 		
 		
@@ -117,6 +135,9 @@ public class DashboardController {
 				addPostMessage.setTextFill(Color.BLACK);
 				addPostMessage.setText("Fill the blanks below if you want to add a new post.");
 				
+				postsTable = makeTableView(sns.getPosts());
+				Posts.setContent(postsTable);
+				
 			} catch (InvalidAttributeException e1) {
 				addPostMessage.setTextFill(Color.RED);
 				addPostMessage.setText(e1.getMessage());
@@ -124,6 +145,51 @@ public class DashboardController {
 				e2.printStackTrace();
 			}
 		});
+		
+		// select "Likes" menu
+		likesItem.setOnAction(e -> {
+			orderMenu.setText("Likes");
+		});
+		
+		// select "Shares" menu
+		sharesItem.setOnAction(e -> {
+			orderMenu.setText("Shares");
+		});
+		
+		// reset sort menu option
+		resetSortMenuItem.setOnAction(e -> {
+			orderMenu.setText("Order");
+			sortCount.setText(null);
+			sortMessage.setText("Sort by Order.");
+			postsTable = makeTableView(sns.getPosts());
+			Posts.setContent(postsTable);
+		});
+		
+		
+		sortBtn.setOnAction(e -> {
+			String selectedMenu = orderMenu.getText();
+			String count = sortCount.getText();
+			try {
+				if (selectedMenu.equals("Likes")) {
+					postsTable = makeTableView(sns.topLikesPosts(count));
+					Posts.setContent(postsTable);
+					
+					sortMessage.setText("Sorted by number of Likes.");
+				}
+				else if (selectedMenu.equals("Shares")){
+					postsTable = makeTableView(sns.topSharesPosts(count));
+					Posts.setContent(postsTable);
+					
+					sortMessage.setText("Sorted by number of Shares.");
+				}				
+			} catch (NegativeNumberException e1) {
+				sortMessage.setText(e1.getMessage());
+			} catch (InvalidAttributeException e2) {
+				sortMessage.setText(e2.getMessage());
+			}
+		});
+		
+		
 		
 		// log out
 		logOutBtn.setOnAction(e -> {

@@ -16,46 +16,46 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <VBox alignment="CENTER" prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="addPostMessage" prefHeight="17.0" prefWidth="590.0" text="Fill the blanks below if you want to add a new post." />
+                  <Label fx:id="addPostMessage" prefHeight="17.0" prefWidth="590.0" text="Fill the blanks below if you want to add a new post." HBox.hgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Post ID" />
-                  <TextField fx:id="postId" prefHeight="6.0" prefWidth="60.0">
+                  <Label text="Post ID" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="postId" prefHeight="6.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <Label text="Author" />
-                  <TextField fx:id="author" prefHeight="6.0" prefWidth="60.0">
+                  <Label text="Author" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="author" prefHeight="6.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <Label text="Likes" />
-                  <TextField fx:id="likes" prefHeight="6.0" prefWidth="50.0" promptText="0">
+                  <Label text="Likes" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="likes" prefHeight="6.0" prefWidth="50.0" promptText="0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <Label text="Shares" />
-                  <TextField fx:id="shares" prefHeight="26.0" prefWidth="50.0" promptText="0">
+                  <Label text="Shares" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="shares" prefHeight="26.0" prefWidth="50.0" promptText="0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </TextField>
-                  <Label text="Date_Time" />
-                  <TextField fx:id="date_time" prefHeight="6.0" prefWidth="120.0" promptText="DD/MM/YY HH:MM">
+                  <Label text="Date_Time" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="date_time" prefHeight="6.0" prefWidth="120.0" promptText="DD/MM/YY HH:MM" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -67,8 +67,8 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="600.0" spacing="5.0">
                <children>
-                  <TextArea fx:id="content" prefHeight="57.0" prefWidth="491.0" promptText="Content" />
-                  <Button fx:id="addPostBtn" mnemonicParsing="false" prefHeight="57.0" prefWidth="110.0" text="Add Post" />
+                  <TextArea fx:id="content" prefHeight="57.0" prefWidth="491.0" promptText="Content" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="addPostBtn" mnemonicParsing="false" prefHeight="57.0" prefWidth="110.0" text="Add Post" HBox.hgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -80,7 +80,7 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="130.0" spacing="10.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Welcome,">
+            <Label text="Welcome," VBox.vgrow="ALWAYS">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
@@ -88,18 +88,18 @@
                   <Insets right="30.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="firstname" alignment="CENTER" text="First name">
+            <Label fx:id="firstname" alignment="CENTER" text="First name" VBox.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lastname" text="Last name">
+            <Label fx:id="lastname" text="Last name" VBox.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="modifyInfoBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Modify Info" />
-            <Button fx:id="logOutBtn" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Log out">
+            <Button fx:id="modifyInfoBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Modify Info" VBox.vgrow="ALWAYS" />
+            <Button fx:id="logOutBtn" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Log out" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -115,16 +115,17 @@
         <tabs>
           <Tab fx:id="postsTab" text="Posts">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="470.0">
                      <children>
-                        <VBox prefHeight="440.0" prefWidth="470.0">
+                        <VBox prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
-                                    <MenuButton mnemonicParsing="false" text="Order">
+                                    <MenuButton fx:id="orderMenu" mnemonicParsing="false" text="Order">
                                       <items>
-                                        <MenuItem mnemonicParsing="false" text="Likes" />
-                                          <MenuItem mnemonicParsing="false" text="Shares" />
+                                        <MenuItem fx:id="likesItem" mnemonicParsing="false" text="Likes" />
+                                          <MenuItem fx:id="sharesItem" mnemonicParsing="false" text="Shares" />
+                                          <MenuItem fx:id="resetSortMenuItem" mnemonicParsing="false" text="Reset" />
                                       </items>
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -135,7 +136,7 @@
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="26.0" prefWidth="70.0" promptText="0">
+                                    <TextField fx:id="sortCount" prefHeight="26.0" prefWidth="70.0" promptText="0">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
@@ -145,7 +146,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Label text="Sort by Order.">
+                                    <Label fx:id="sortMessage" text="Sort by Order." HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
@@ -158,7 +159,10 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="Posts" prefHeight="400.0" prefWidth="470.0" />
+                              <ScrollPane fx:id="Posts" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin></ScrollPane>
                            </children>
                         </VBox>
                      </children>
@@ -167,9 +171,9 @@
           </Tab>
           <Tab fx:id="searchTeb" text="Search">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="470.0">
                      <children>
-                        <VBox prefHeight="440.0" prefWidth="470.0">
+                        <VBox prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
@@ -188,7 +192,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Label text="Search by Post ID." wrapText="true">
+                                    <Label text="Search by Post ID." wrapText="true" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
@@ -201,13 +205,16 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="Search" prefHeight="400.0" prefWidth="470.0">
+                              <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
                                  <content>
                                     <Button fx:id="deleteBtn" alignment="TOP_LEFT" cancelButton="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" opacity="0.5" text="Delete" />
                                  </content>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
                               </ScrollPane>
                            </children>
                         </VBox>
@@ -216,9 +223,9 @@
           </Tab>
             <Tab fx:id="vipTab" text="VIP">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                      <children>
-                        <VBox prefHeight="440.0" prefWidth="470.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
@@ -231,7 +238,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </MenuButton>
-                                    <Label text="Distribute portion by category..">
+                                    <Label text="Distribute portion by category." HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
@@ -244,7 +251,10 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="VIP" prefHeight="400.0" prefWidth="470.0" />
+                              <ScrollPane fx:id="VIP" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin></ScrollPane>
                            </children>
                         </VBox>
                      </children></AnchorPane>
