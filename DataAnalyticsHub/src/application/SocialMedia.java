@@ -50,7 +50,7 @@ public class SocialMedia {
 		File csv = new File(CSVpath);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(csv));
 
-		String colName = "ID,content,author,likes,shares,date-time";
+		String colName = "ID,Content,Author,Likes,Shares,Date-Time";
 		bw.write(colName);
 		bw.newLine();
 

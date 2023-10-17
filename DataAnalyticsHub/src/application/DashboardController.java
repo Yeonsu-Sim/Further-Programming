@@ -1,6 +1,9 @@
 package application;
 
 import java.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import application.Post.*;
 import javafx.fxml.FXML;
@@ -23,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.fxml.FXMLLoader;
 
 public class DashboardController {
@@ -244,6 +248,25 @@ public class DashboardController {
 		// export post by Post ID
 		exportBtn.setOnAction(e -> {
 			
+	        FileChooser fileChooser = new FileChooser();
+	        fileChooser.setTitle("Save CSV File");
+	        fileChooser.setInitialFileName("data.csv");
+
+			String path = "";
+	        // show directory chooser Dialog and store absolute path
+	        File selectedFile = fileChooser.showSaveDialog(this.stage);
+
+	        if (selectedFile != null) {
+	            path = selectedFile.getAbsolutePath();
+	            String id = getSelectedRowId(searchedTable);
+	            try {
+					exportCSV(path, sns.retrievePost(id));
+				} catch (NegativeNumberException | InvalidAttributeException e1) {
+					searchMessage.setText(e1.getMessage());
+				}
+	        } else {
+	            System.out.println("No directory selected.");
+	        }
 		});
 		
 		// log out
@@ -301,7 +324,6 @@ public class DashboardController {
 		if (selectedItem != null) {
 		    // get post ID of clicked row
 			id = Integer.toString((int) column.getCellObservableValue(selectedItem).getValue());
-		    System.out.println("Post ID of selected column: " + id);
 		}
 		return id;
 	}
@@ -312,6 +334,29 @@ public class DashboardController {
 		deleteBtn.setOpacity(0.5);
 		exportBtn.setDisable(true);
 		exportBtn.setOpacity(0.5);
+	}
+	
+	public void exportCSV(String path, Post post) {
+		File csv = new File(path);
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(csv));
+			String colName = "ID,Content,Author,Likes,Shares,Date-Time";
+			bw.write(colName);
+			bw.newLine();
+
+			String row = post.getId()+","+post.getContent()+","+post.getAuthor()+","+post.getLikes()+","+post.getShares()+","+post.getDate();
+			bw.write(row);
+			bw.newLine();
+			
+			if (bw != null) {
+				bw.flush();  // clean rest of data
+				bw.close();  // close BufferedWriter
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Successfully exported to '"+path+"'");
 	}
 	
 	public void setStage(Stage stage) { this.stage = stage; }
