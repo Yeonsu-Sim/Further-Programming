@@ -152,14 +152,16 @@ public class SocialMedia {
 			throw new InvalidAttributeException("Sorry this post ID does not exist in the collection!");
 	}
 	
-	public void retrievePost(String input) throws NegativeNumberException, InvalidAttributeException {
+	public Post retrievePost(String input) throws NegativeNumberException, InvalidAttributeException {
+		Post post;
 		int id = scanInputNumber("Post ID", input);
 		if (db.containsKey(id)) {
-			Post post = db.get(id);
+			post = db.get(id);
 			System.out.println(post.getId()+" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate());
 		}
 		else
 			throw new InvalidAttributeException("This Post ID does not exist in the collection!");
+		return post;
 	}
 	
 	public ArrayList<Post> topLikesPosts(String input) throws NegativeNumberException, InvalidAttributeException {

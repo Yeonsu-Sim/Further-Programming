@@ -31,6 +31,7 @@ public class DashboardController {
 	private User user;
 	private SocialMedia sns;
 	private TableView postsTable;
+	private TableView searchedTable;
 	private final String CSVpath = "/db/posts.csv";
 	
 	@FXML
@@ -86,6 +87,12 @@ public class DashboardController {
 	private Button searchBtn;
 	@FXML
 	private Button deleteBtn;
+	@FXML
+	private Button exportBtn;
+	@FXML
+	private TextField searchId;
+	@FXML
+	private Label searchMessage;
 	
 	@FXML
 	private ScrollPane VIP;
@@ -165,7 +172,7 @@ public class DashboardController {
 			Posts.setContent(postsTable);
 		});
 		
-		
+		// sort posts by menu option
 		sortBtn.setOnAction(e -> {
 			String selectedMenu = orderMenu.getText();
 			String count = sortCount.getText();
@@ -182,14 +189,30 @@ public class DashboardController {
 					
 					sortMessage.setText("Sorted by number of Shares.");
 				}				
-			} catch (NegativeNumberException e1) {
+			} catch (NegativeNumberException | InvalidAttributeException e1) {
 				sortMessage.setText(e1.getMessage());
-			} catch (InvalidAttributeException e2) {
-				sortMessage.setText(e2.getMessage());
 			}
 		});
 		
+		// retrieve post by Post ID
+		searchBtn.setOnAction(e -> {
+			String id = searchId.getText();
+			try {
+				Post post = sns.retrievePost(id);
+				searchedTable = makeTableView(post);
+				Search.setContent(searchedTable);
+				
+			} catch (NegativeNumberException | InvalidAttributeException e1) {
+				searchMessage.setText(e1.getMessage());
+			}
+		});
 		
+		// reset search tab
+		searchId.setOnKeyPressed(e -> {
+			if (searchId.getText().equals("")) {
+				Search.setContent(null);
+			}
+		});
 		
 		// log out
 		logOutBtn.setOnAction(e -> {
@@ -226,6 +249,15 @@ public class DashboardController {
 
         // set data to table
         table.setItems(data);
+        
+		return table;
+	}	
+	
+	public TableView<Post> makeTableView(Post post) {
+		ArrayList<Post> postArr = new ArrayList<>();
+		postArr.add(post);
+		
+		TableView<Post> table = makeTableView(postArr);
         
 		return table;
 	}

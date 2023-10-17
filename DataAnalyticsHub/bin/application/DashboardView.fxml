@@ -12,7 +12,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -159,10 +162,11 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="Posts" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                              <ScrollPane fx:id="Posts" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin></ScrollPane>
+                                 </VBox.margin>
+                              </ScrollPane>
                            </children>
                         </VBox>
                      </children>
@@ -177,22 +181,22 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
-                                    <Label text="Post ID">
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" text="Post ID">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField prefHeight="26.0" prefWidth="70.0" promptText="0">
+                                    <TextField fx:id="searchId" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="70.0" promptText="0">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button fx:id="searchBtn" mnemonicParsing="false" text="Search">
+                                    <Button fx:id="searchBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Search">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Label text="Search by Post ID." wrapText="true" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="searchMessage" text="Search by Post ID." wrapText="true" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" top="5.0" />
                                        </HBox.margin>
@@ -205,13 +209,23 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <Button fx:id="deleteBtn" alignment="TOP_LEFT" cancelButton="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" opacity="0.5" text="Delete" />
-                                 </content>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
+                              <GridPane hgap="5.0" prefHeight="31.0" VBox.vgrow="NEVER">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <VBox.margin>
+                                    <Insets left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button fx:id="exportBtn" mnemonicParsing="false" opacity="0.5" text="Export" />
+                                    <Button fx:id="deleteBtn" mnemonicParsing="false" opacity="0.5" text="Delete" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
