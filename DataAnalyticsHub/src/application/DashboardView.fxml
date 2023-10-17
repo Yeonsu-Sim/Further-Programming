@@ -221,8 +221,8 @@
                                     <Insets left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button fx:id="exportBtn" mnemonicParsing="false" opacity="0.5" text="Export" />
-                                    <Button fx:id="deleteBtn" mnemonicParsing="false" opacity="0.5" text="Delete" GridPane.columnIndex="1" />
+                                    <Button fx:id="exportBtn" disable="true" mnemonicParsing="false" opacity="0.5" text="Export" />
+                                    <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" opacity="0.5" text="Delete" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

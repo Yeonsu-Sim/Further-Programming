@@ -139,12 +139,11 @@ public class SocialMedia {
 		db.put(id, post);			
 	}
 	
-	public void deletePost(String id) throws IOException, NegativeNumberException, InvalidAttributeException{
-		System.out.print("Please provide the post ID: ");
-		int postId = scanInputNumber("postId", id);
+	public void deletePost(String input) throws IOException, NegativeNumberException, InvalidAttributeException{
+		int postId = scanInputNumber("postId", input);
 		if (db.containsKey(postId)) {
 			Post post = db.get(postId);
-			System.out.println("ID "+ id +" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate()+ " is removed from the collection.");
+			System.out.println("ID "+ input +" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate()+ " is removed from the collection.");
 			db.remove(postId);
 			writeCSV(CSVpath);
 		}

@@ -202,6 +202,16 @@ public class DashboardController {
 				searchedTable = makeTableView(post);
 				Search.setContent(searchedTable);
 				
+				searchedTable.setOnMouseClicked(event -> {
+					String Id = getSelectedRowId(searchedTable);
+					if (Id != null) {
+						deleteBtn.setDisable(false);
+						deleteBtn.setOpacity(1);
+						exportBtn.setDisable(false);
+						exportBtn.setOpacity(1);
+					}
+				});
+
 			} catch (NegativeNumberException | InvalidAttributeException e1) {
 				searchMessage.setText(e1.getMessage());
 			}
@@ -210,8 +220,30 @@ public class DashboardController {
 		// reset search tab
 		searchId.setOnKeyPressed(e -> {
 			if (searchId.getText().equals("")) {
-				Search.setContent(null);
+				resetSearch();
+				searchMessage.setText("Search by Post ID.");
 			}
+		});
+		
+		// delete post by Post ID
+		deleteBtn.setOnAction(e -> {
+			String id = getSelectedRowId(searchedTable);
+			
+			try {
+				sns.deletePost(id);
+				Search.setContent(null);
+				searchId.setText("");
+				postsTable = makeTableView(sns.getPosts());
+				Posts.setContent(postsTable);
+				resetSearch();
+			} catch (NegativeNumberException | IOException | InvalidAttributeException e1) {
+				searchMessage.setText(e1.getMessage());
+			}
+		});
+		
+		// export post by Post ID
+		exportBtn.setOnAction(e -> {
+			
 		});
 		
 		// log out
@@ -260,6 +292,26 @@ public class DashboardController {
 		TableView<Post> table = makeTableView(postArr);
         
 		return table;
+	}
+	
+	public String getSelectedRowId(TableView<Post> table) {
+		String id = null;
+		TableColumn column = (TableColumn) searchedTable.getColumns().get(0);
+		Post selectedItem = (Post) searchedTable.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+		    // get post ID of clicked row
+			id = Integer.toString((int) column.getCellObservableValue(selectedItem).getValue());
+		    System.out.println("Post ID of selected column: " + id);
+		}
+		return id;
+	}
+	
+	public void resetSearch() {
+		Search.setContent(null);
+		deleteBtn.setDisable(true);
+		deleteBtn.setOpacity(0.5);
+		exportBtn.setDisable(true);
+		exportBtn.setOpacity(0.5);
 	}
 	
 	public void setStage(Stage stage) { this.stage = stage; }
