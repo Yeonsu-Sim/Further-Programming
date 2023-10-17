@@ -1,5 +1,7 @@
 package application;
 
+import javafx.beans.property.SimpleObjectProperty;
+
 public class Post {
 	
 	private int id;
@@ -7,7 +9,7 @@ public class Post {
 	private String author;
 	private int likes;
 	private int shares;
-	private Date date_time;
+	private SimpleObjectProperty<Post.Date> date_time;
 	
 	public Post() {
 	}
@@ -22,10 +24,10 @@ public class Post {
 		this.author = author;
 		this.likes = likes;
 		this.shares = shares;
-		this.date_time = date_time;
+		this.date_time = new SimpleObjectProperty<>(date_time);
 	}
 	
-	public int getID() {
+	public int getId() {
 		return this.id;
 	}
 	public String getContent() {
@@ -41,8 +43,12 @@ public class Post {
 		return this.shares;
 	}
 	public Date getDate() {
-		return this.date_time;
+		return this.date_time.get();
 	}
+	
+    public SimpleObjectProperty<Post.Date> date_timeProperty() {
+        return this.date_time;
+    }
 
 	public static class Date {  // If "Sort by recent date" function is needed, making date class is more efficient. 
 			int year;           // Cause member variables are Integer type.

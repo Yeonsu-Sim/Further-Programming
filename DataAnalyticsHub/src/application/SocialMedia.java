@@ -56,7 +56,7 @@ public class SocialMedia {
 
 		for (int key : db.keySet()) {
 			Post post = db.get(key);
-			String row = post.getID()+","+post.getContent()+","+post.getAuthor()+","+post.getLikes()+","+post.getShares()+","+post.getDate();
+			String row = post.getId()+","+post.getContent()+","+post.getAuthor()+","+post.getLikes()+","+post.getShares()+","+post.getDate();
 			bw.write(row);
 			bw.newLine();
 		}
@@ -73,7 +73,7 @@ public class SocialMedia {
 	
 	// Add post
 	public void addPost(String idStr, String content, String author, String likes, String shares, String date_time) 
-				throws InvalidAttributeException, IOException {
+		throws InvalidAttributeException, IOException {
 		
 		int postId;
 		String cont;
@@ -139,87 +139,93 @@ public class SocialMedia {
 		db.put(id, post);			
 	}
 	
-//	public void deletePost() throws IOException{
-//		System.out.print("Please provide the post ID: ");
-//		int id = scanInputNumber("id");
-//		if (db.containsKey(id)) {
-//			Post post = db.get(id);
-//			System.out.println("ID "+ id +" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate()+ " is removed from the collection.");
-//			db.remove(id);
-//			writeCSV(CSVpath);
-//		}
-//		else
-//			System.out.println("Sorry the post does not exist in the collection!");
-//	}
-//	
-//	public void retrievePost() {
-//		System.out.print("Please provide the post ID: ");
-//		int id = scanInputNumber("id");
-//		if (db.containsKey(id)) {
-//			Post post = db.get(id);
-//			System.out.println(post.getID()+" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate());
-//		}
-//		else
-//			System.out.println("Sorry the post does not exist in the collection!");
-//	}
-//	
-//	public void topLikesPosts() {
-//		System.out.println("Please specify the number of posts to retrieve (N): ");
-//		int number = scanInputNumber("number of likes");
-//		
-//		if (number <0 || number > db.size()) {
-//			System.out.println("Only "+db.size()+" posts exist in the collection. Showing all of them.");
-//			System.out.println("The top-"+db.size()+" posts with the most shares are:");
-//			number = db.size();
-//		}
-//		
-//		HashMap<Integer,Integer> temp = new HashMap<Integer,Integer>();
-//		
-//		db.forEach((key, value) -> {  // Lambda Expression
-//			temp.put(key, value.getLikes());
-//		});
-//		
-//		LinkedHashMap<Integer,Integer> sorted_temp = sortPosts(temp);
-//		
-//		int count = 0;
-//		for (int id : sorted_temp.keySet()) {
-//			System.out.print(++count + ") " + id + " | ");
-//			System.out.print(db.get(id).getContent() + " | ");
-//			System.out.println(db.get(id).getLikes());
-//			
-//			if (count == number) 
-//				break;
-//		}
-//	}
-//	
-//	public void topSharesPosts() {
-//		System.out.print("Please specify the number of posts to retrieve (N): ");
-//		int number = scanInputNumber("number of shares");
-//		
-//		if (number <0 || number > db.size()) {
-//			System.out.println("Only "+db.size()+" posts exist in the collection. Showing all of them.");
-//			System.out.println("The top-"+db.size()+" posts with the most shares are:");
-//			number = db.size();
-//		}
-//		
-//		HashMap<Integer,Integer> temp = new HashMap<Integer,Integer>();
-//		
-//		db.forEach((key, value) -> {  // lambda statement
-//			temp.put(key, value.getShares());
-//		});
-//		
-//		LinkedHashMap<Integer,Integer> sorted_temp = sortPosts(temp);
-//		
-//		int count = 0;
-//		for (int id : sorted_temp.keySet()) {
-//			System.out.print(++count + ") " + id + " | ");
-//			System.out.print(db.get(id).getContent() + " | ");
-//			System.out.println(db.get(id).getShares());
-//			
-//			if (count == number) 
-//				break;
-//		}
-//	}
+	public void deletePost(String id) throws IOException, NegativeNumberException, InvalidAttributeException{
+		System.out.print("Please provide the post ID: ");
+		int postId = scanInputNumber("postId", id);
+		if (db.containsKey(postId)) {
+			Post post = db.get(postId);
+			System.out.println("ID "+ id +" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate()+ " is removed from the collection.");
+			db.remove(postId);
+			writeCSV(CSVpath);
+		}
+		else
+			throw new InvalidAttributeException("Sorry this post ID does not exist in the collection!");
+	}
+	
+	public void retrievePost(String input) throws NegativeNumberException, InvalidAttributeException {
+		int id = scanInputNumber("Post ID", input);
+		if (db.containsKey(id)) {
+			Post post = db.get(id);
+			System.out.println(post.getId()+" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate());
+		}
+		else
+			throw new InvalidAttributeException("This Post ID does not exist in the collection!");
+	}
+	
+	public ArrayList<Post> topLikesPosts(String input) throws NegativeNumberException, InvalidAttributeException {
+		int number = scanInputNumber("count", input);
+		
+		if (number <0 || number > db.size()) {
+			System.out.println("Only "+db.size()+" posts exist in the collection. Showing all of them.");
+			number = db.size();
+		}
+		
+		HashMap<Integer,Integer> temp = new HashMap<Integer,Integer>();
+		
+		db.forEach((key, value) -> {  // Lambda Expression
+			temp.put(key, value.getLikes());
+		});
+		
+		LinkedHashMap<Integer,Integer> sorted_temp = sortPosts(temp);
+		ArrayList<Post> sortedPosts = new ArrayList<>();
+		
+		int count = 0;
+		for (int id : sorted_temp.keySet()) {
+			sortedPosts.add(db.get(id));		
+			if (++count == number) 
+				break;
+		}
+		return sortedPosts;
+	
+	}
+	
+	public ArrayList<Post> topSharesPosts(String input) throws NegativeNumberException, InvalidAttributeException {
+		int number = scanInputNumber("count", input);
+		
+		if (number <0 || number > db.size()) {
+			System.out.println("Only "+db.size()+" posts exist in the collection. Showing all of them.");
+			number = db.size();
+		}
+		
+		HashMap<Integer,Integer> temp = new HashMap<Integer,Integer>();
+		
+		db.forEach((key, value) -> {  // Lambda Expression
+			temp.put(key, value.getShares());
+		});
+		
+		LinkedHashMap<Integer,Integer> sorted_temp = sortPosts(temp);
+		ArrayList<Post> sortedPosts = new ArrayList<>();
+		
+		int count = 0;
+		for (int id : sorted_temp.keySet()) {
+			sortedPosts.add(db.get(id));		
+			if (++count == number) 
+				break;
+		}
+		return sortedPosts;
+	
+	}
+	
+	public ArrayList<Post> getPosts() {
+		ArrayList<Post> posts = new ArrayList<>();
+		int count = 0;
+		for (int id : db.keySet()) {
+			posts.add(db.get(id));
+			if (++count == db.size())
+				break;
+		}
+		return posts;
+	}
 	
 	// Only return int number
 	public int scanInputNumber(String column, String input) throws NegativeNumberException, InvalidAttributeException {  

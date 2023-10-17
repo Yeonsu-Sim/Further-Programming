@@ -3,11 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +18,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <VBox alignment="CENTER" prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: aliceblue;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0">
                <children>
@@ -78,7 +78,7 @@
       </VBox>
    </bottom>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="130.0" spacing="10.0" style="-fx-background-color: aliceblue;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="130.0" spacing="10.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Welcome,">
                <font>
@@ -113,51 +113,141 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Posts">
+          <Tab fx:id="postsTab" text="Posts">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="-2.0" layoutY="-2.0" prefHeight="443.0" prefWidth="474.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                        <VBox prefHeight="440.0" prefWidth="470.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
-                                    <TableView layoutX="4.0" layoutY="4.0" prefHeight="426.0" prefWidth="456.0">
-                                      <columns>
-                                        <TableColumn prefWidth="60.0" text="Post ID" />
-                                        <TableColumn prefWidth="120.0" text="Content" />
-                                          <TableColumn prefWidth="60.0" text="Author" />
-                                          <TableColumn prefWidth="50.0" text="Likes" />
-                                          <TableColumn prefWidth="50.0" text="Shares" />
-                                          <TableColumn prefWidth="100.0" text="Date_Time" />
-                                      </columns>
-                                       <padding>
+                                    <MenuButton mnemonicParsing="false" text="Order">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="Likes" />
+                                          <MenuItem mnemonicParsing="false" text="Shares" />
+                                      </items>
+                                       <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TableView>
+                                       </HBox.margin>
+                                    </MenuButton>
+                                    <Label text="count">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField prefHeight="26.0" prefWidth="70.0" promptText="0">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="sortBtn" mnemonicParsing="false" text="Sort">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Label text="Sort by Order.">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
-                              </AnchorPane>
-                          </content>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </ScrollPane>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <ScrollPane fx:id="Posts" prefHeight="400.0" prefWidth="470.0" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Search">
+          <Tab fx:id="searchTeb" text="Search">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="440.0" prefWidth="470.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
+                                 <children>
+                                    <Label text="Post ID">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField prefHeight="26.0" prefWidth="70.0" promptText="0">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="searchBtn" mnemonicParsing="false" text="Search">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Label text="Search by Post ID." wrapText="true">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <ScrollPane fx:id="Search" prefHeight="400.0" prefWidth="470.0">
+                                 <content>
+                                    <Button fx:id="deleteBtn" alignment="TOP_LEFT" cancelButton="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" opacity="0.5" text="Delete" />
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Sort">
+            <Tab fx:id="vipTab" text="VIP">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="VIP">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="440.0" prefWidth="470.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
+                                 <children>
+                                    <MenuButton mnemonicParsing="false" text="Category">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" text="Likes" />
+                                          <MenuItem mnemonicParsing="false" text="Shares" />
+                                       </items>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </MenuButton>
+                                    <Label text="Distribute portion by category..">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <ScrollPane fx:id="VIP" prefHeight="400.0" prefWidth="470.0" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
