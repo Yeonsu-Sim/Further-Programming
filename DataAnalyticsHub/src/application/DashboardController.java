@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.fxml.FXMLLoader;
 
 public class DashboardController {
@@ -249,6 +250,11 @@ public class DashboardController {
 		exportBtn.setOnAction(e -> {
 			
 	        FileChooser fileChooser = new FileChooser();
+	        
+	        // Set extension filter
+			ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv");
+
+			fileChooser.getExtensionFilters().add(extFilter);
 	        fileChooser.setTitle("Save CSV File");
 	        fileChooser.setInitialFileName("data.csv");
 
