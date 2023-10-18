@@ -21,13 +21,10 @@ public class ModifyInfoController {
 	
 	@FXML
 	private TextField username;
-	
 	@FXML
 	private TextField password;
-	
 	@FXML
 	private TextField firstname;
-	
 	@FXML
 	private TextField lastname;
 

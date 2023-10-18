@@ -116,6 +116,8 @@ public class SocialMedia {
 		Date date = null;
 		try { 
 			id = Integer.parseInt(idStr);
+			if (db.containsKey(id))
+				throw new InvalidAttributeException("CSV File Contains a Post ID that Already Exist. Please check index "+index+" (row "+(index+1)+").");
 		} catch (NumberFormatException e) {  // wrapping exception
 			throw new InvalidAttributeException("Invalid value in id column. Please check index "+index+" (row "+(index+1)+").");
 		}
@@ -136,7 +138,8 @@ public class SocialMedia {
 		}
 
 		Post post = new Post(id, content, author, likes, shares, date);
-		db.put(id, post);			
+		db.put(id, post);
+		writeCSV(CSVpath);
 	}
 	
 	public void deletePost(String input) throws IOException, NegativeNumberException, InvalidAttributeException{

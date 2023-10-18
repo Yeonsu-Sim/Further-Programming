@@ -22,16 +22,13 @@ public class LoginController {
 
 	@FXML
 	private TextField username;
-
 	@FXML
 	private TextField password;
-
 	@FXML
-	private Button btn;
 	
+	private Button btn;
 	@FXML
 	private Label signup;
-	
 	@FXML
 	private Label loginMessage;
 

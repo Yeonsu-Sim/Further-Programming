@@ -21,9 +21,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <VBox alignment="CENTER" prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="addPostMessage" prefHeight="17.0" prefWidth="590.0" text="Fill the blanks below if you want to add a new post." HBox.hgrow="ALWAYS" />
                </children>
@@ -31,7 +31,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Post ID" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="postId" prefHeight="6.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
@@ -68,10 +68,10 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="70.0" prefWidth="600.0" spacing="5.0">
+            <HBox minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="600.0" spacing="5.0">
                <children>
                   <TextArea fx:id="content" prefHeight="57.0" prefWidth="491.0" promptText="Content" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="addPostBtn" mnemonicParsing="false" prefHeight="57.0" prefWidth="110.0" text="Add Post" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="addBtn" mnemonicParsing="false" prefHeight="57.0" prefWidth="110.0" text="Add Post" HBox.hgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -81,7 +81,7 @@
       </VBox>
    </bottom>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="130.0" spacing="10.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="130.0" spacing="10.0" style="-fx-background-color: aliceblue; -fx-border-style: solid; -fx-border-color: silver; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Welcome," VBox.vgrow="ALWAYS">
                <font>
@@ -114,7 +114,7 @@
       </VBox>
    </right>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="postsTab" text="Posts">
             <content>
@@ -122,7 +122,7 @@
                      <children>
                         <VBox prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
+                              <HBox alignment="CENTER_LEFT" minWidth="0.0" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
                                     <MenuButton fx:id="orderMenu" mnemonicParsing="false" text="Order">
                                       <items>
@@ -151,7 +151,7 @@
                                     </Button>
                                     <Label fx:id="sortMessage" text="Sort by Order." HBox.hgrow="ALWAYS">
                                        <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Label>
                                  </children>
@@ -162,7 +162,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <ScrollPane fx:id="Posts" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <ScrollPane fx:id="Posts" fitToHeight="true" fitToWidth="true" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
@@ -177,9 +177,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="470.0">
                      <children>
-                        <VBox prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
+                              <HBox alignment="CENTER_LEFT" minWidth="0.0" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
                                     <Label minHeight="-Infinity" minWidth="-Infinity" text="Post ID">
                                        <HBox.margin>
@@ -198,7 +198,7 @@
                                     </Button>
                                     <Label fx:id="searchMessage" text="Search by Post ID." wrapText="true" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Label>
                                  </children>
@@ -209,7 +209,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <GridPane hgap="5.0" prefHeight="31.0" VBox.vgrow="NEVER">
+                              <GridPane hgap="5.0" minHeight="0.0" minWidth="0.0" prefHeight="31.0" VBox.vgrow="NEVER">
                                 <columnConstraints>
                                   <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -225,7 +225,7 @@
                                     <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" opacity="0.5" text="Delete" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <ScrollPane fx:id="Search" fitToHeight="true" fitToWidth="true" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
@@ -239,7 +239,7 @@
               <content>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                      <children>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="440.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
@@ -252,9 +252,9 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </MenuButton>
-                                    <Label text="Distribute portion by category." HBox.hgrow="ALWAYS">
+                                    <Label fx:id="distributeMessage" text="Distribute portion by category." HBox.hgrow="ALWAYS">
                                        <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" top="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Label>
                                  </children>
@@ -269,11 +269,16 @@
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin></ScrollPane>
-                              <Button fx:id="importBtn" mnemonicParsing="false" text="Import">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <HBox prefHeight="31.0" prefWidth="470.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Button fx:id="importBtn" mnemonicParsing="false" text="Import" />
+                                    <Label fx:id="importMessage" text="Bulk import Posts from a CSV File.">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children></AnchorPane>
