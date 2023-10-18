@@ -102,7 +102,7 @@ public class DashboardController {
 		firstname.setText(user.getFirstName());
 		lastname.setText(user.getLastName());
 		
-		// make table of Posts page
+		// make table of Posts tab
 		postsTable = makeTableView(sns.getPosts());
 		Posts.setContent(postsTable);  // Display table
 		
@@ -133,6 +133,7 @@ public class DashboardController {
 				shares.setText("");
 				date_time.setText("");
 			
+				// reset Posts tab
 				addPostMessage.setTextFill(Color.BLACK);
 				addPostMessage.setText("Fill the blanks below if you want to add a new post.");
 				
@@ -140,7 +141,7 @@ public class DashboardController {
 				
 			} catch (InvalidAttributeException e1) {
 				addPostMessage.setTextFill(Color.RED);
-				addPostMessage.setText(e1.getMessage());
+				addPostMessage.setText(e1.getMessage());  // display error message on screen
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
@@ -161,61 +162,48 @@ public class DashboardController {
 			orderMenu.setText("Order");
 			sortCount.setText(null);
 			sortMessage.setText("Sort by Order.");
+			
+			// refresh table of Posts tab
 			postsTable = makeTableView(sns.getPosts());
 			Posts.setContent(postsTable);
 		});
 		
 		// sort posts by menu option
 		sortBtn.setOnAction(e -> {
-			String selectedMenu = orderMenu.getText();
-			String count = sortCount.getText();
-			try {
-				if (selectedMenu.equals("Likes")) {
-					postsTable = makeTableView(sns.topLikesPosts(count));
-					Posts.setContent(postsTable);
-					
-					sortMessage.setText("Sorted by number of Likes.");
-				}
-				else if (selectedMenu.equals("Shares")){
-					postsTable = makeTableView(sns.topSharesPosts(count));
-					Posts.setContent(postsTable);
-					
-					sortMessage.setText("Sorted by number of Shares.");
-				}				
-			} catch (NegativeNumberException | InvalidAttributeException e1) {
-				sortMessage.setText(e1.getMessage());
-			}
+			sortTable(orderMenu.getText(), sortCount.getText());
 		});
 		
 		// retrieve post by Post ID
 		searchBtn.setOnAction(e -> {
 			String id = searchId.getText();
 			try {
-				Post post = sns.retrievePost(id);
-				searchedTable = makeTableView(post);
-				Search.setContent(searchedTable);
+				Post post = sns.retrievePost(id);  // bring post from database
+				searchedTable = makeTableView(post);  // make new table view for searched post
+				Search.setContent(searchedTable);  // show table on Posts tab
 				
+				// disable delete, export buttons
 				deleteBtn.setDisable(true);
 				deleteBtn.setOpacity(0.5);
 				exportBtn.setDisable(true);
 				exportBtn.setOpacity(0.5);
 				
+				// when the row of the table is clicked
 				searchedTable.setOnMouseClicked(event -> {
 					String Id = getSelectedRowId(searchedTable);
 					if (Id != null) {
+						// able delete, export buttons
 						deleteBtn.setDisable(false);
 						deleteBtn.setOpacity(1);
 						exportBtn.setDisable(false);
 						exportBtn.setOpacity(1);
 					}
 				});
-
 			} catch (NegativeNumberException | InvalidAttributeException e1) {
-				searchMessage.setText(e1.getMessage());
+				searchMessage.setText(e1.getMessage());  // display error message on screen
 			}
 		});
 		
-		// reset search tab
+		// reset Search tab
 		searchId.setOnKeyPressed(e -> {
 			if (searchId.getText().equals("")) {
 				resetSearch();
@@ -228,15 +216,16 @@ public class DashboardController {
 			String id = getSelectedRowId(searchedTable);
 			
 			try {
-				sns.deletePost(id);
-				Search.setContent(null);
-				searchId.setText("");
-				postsTable = makeTableView(sns.getPosts());
-				Posts.setContent(postsTable);
-				resetSearch();
-				VIP.setContent(distribute(categoryMenu.getText()));
-			} catch (NegativeNumberException | IOException | InvalidAttributeException e1) {
-				searchMessage.setText(e1.getMessage());
+				sns.deletePost(id);  // delete post from database
+
+				resetSearch();  // reset Search tab
+
+				refresh();  // refresh tables and pie chart
+
+			} catch (NegativeNumberException | InvalidAttributeException e1) {
+				searchMessage.setText(e1.getMessage());  // display error message on screen
+			} catch (IOException e2) {
+				e2.printStackTrace();
 			}
 		});
 		
@@ -253,11 +242,11 @@ public class DashboardController {
 	        fileChooser.setInitialFileName("data.csv");
 
 			String path = "";
-	        // show directory chooser Dialog and store absolute path
+	        // show file chooser Dialog
 	        File selectedFile = fileChooser.showSaveDialog(this.stage);
 
 	        if (selectedFile != null) {
-	            path = selectedFile.getAbsolutePath();
+	            path = selectedFile.getAbsolutePath();  // store choosed absolute path
 	            String id = getSelectedRowId(searchedTable);
 	            try {
 					exportCSV(path, sns.retrievePost(id));
@@ -273,7 +262,9 @@ public class DashboardController {
 		likesCategory.setOnAction(e -> {
 			categoryMenu.setText("Likes");
 			distributeMessage.setText("Distribute portion by Likes.");
-			VIP.setContent(distribute("Likes"));
+			// load pie chart on VIP tab
+			pieChart = distribute("Likes");
+			VIP.setContent(pieChart);
 		
 		});
 		
@@ -281,11 +272,13 @@ public class DashboardController {
 		sharesCategory.setOnAction(e -> {
 			categoryMenu.setText("Shares");
 			distributeMessage.setText("Distribute portion by Shares.");
-			VIP.setContent(distribute("Shares"));
+			// load pie chart on VIP tab
+			pieChart = distribute("Shares");
+			VIP.setContent(pieChart);
 			
 		});
 		
-		// bulk import social media posts from .csv file
+		// bulk import social media posts from ".csv" file
 		importBtn.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 	        
@@ -296,38 +289,38 @@ public class DashboardController {
 	        fileChooser.setTitle("Import CSV File");
 
 			String path = "";
-	        // show directory chooser Dialog and store absolute path
+	        // show file chooser Dialog
 	        File selectedFile = fileChooser.showOpenDialog(this.stage);
 
 	        if (selectedFile != null) {
-	            path = selectedFile.getAbsolutePath();
+	            path = selectedFile.getAbsolutePath();  //  store choosed absolute path
 	            try {
 					sns.readCSV(path);
-					VIP.setContent(distribute(distributeMessage.getText()));
-					postsTable = makeTableView(sns.getPosts());
-					Posts.setContent(postsTable);
 					importMessage.setText("Imported.");
 					System.out.println("The CSV File has been imported to the collection!");
-				} catch (InvalidAttributeException e1) {
+				} catch (InvalidAttributeException | FileNotFoundException e1) {
 					importMessage.setText(e1.getMessage());
-				} catch (FileNotFoundException e1) {
-					importMessage.setText(e1.getMessage());
-				} catch (IOException e1) {
-					importMessage.setText(e1.getMessage());
+				} catch (IOException e2) {
+					e2.printStackTrace();
 				}
 	        } else {
 	            System.out.println("No directory selected.");
 	        }
+	        refresh();  // refresh tables and pie chart
 		});
 		
 		// log out
 		logOutBtn.setOnAction(e -> {
-			user.logout();
+			user.logout();  // remove user information
+			// view login page on this stage
 			LoginController loginController = new LoginController(this.user);
 			loginController.view(this.stage);
 			
 		});
 	}
+
+
+	//// HELPER FUNCTION  ////
 
 	// alert VIP subscribe
 	public void alertSubscribe() {
@@ -336,25 +329,26 @@ public class DashboardController {
 	        alert.setHeaderText("Subscribe VIP");
 	        alert.setContentText("Would you like to subscribe to the application for a monthly fee of $0?");
 
-	        // "Yes"와 "No" 버튼 추가
+	        // add "Yes" and "No" Button
 	        ButtonType yesButton = new ButtonType("Yes");
 	        ButtonType noButton = new ButtonType("No");
 
 	        alert.getButtonTypes().setAll(yesButton, noButton);
 
-	        // 사용자의 응답을 기다립니다.
+	        // wait for user's respond
 	        Optional<ButtonType> result = alert.showAndWait();
 
 	        if (result.isPresent() && result.get() == yesButton) {
 	            System.out.println("User clicked Yes");
-	            user.modify(user.getNumber(), user.getUserName(), user.getPassword(), 
-	            		user.getFirstName(), user.getLastName(), "vip");
+				// update user information of database
+	            user.modify(user.getNumber(), user.getUserName(), user.getPassword(), user.getFirstName(), user.getLastName(), "vip");
 	        } else {
 	            System.out.println("User clicked No or closed the dialog");
-	            vipTab.setDisable(true);
+	            vipTab.setDisable(true);  // disable VIP tab
 	        }
 	}
 	
+	// make new table view
 	public TableView<Post> makeTableView(ArrayList<Post> posts) {
 		
 		TableView<Post> table = new TableView<>();
@@ -373,6 +367,7 @@ public class DashboardController {
         sharesCol.setCellValueFactory(new PropertyValueFactory<>("shares"));
         date_timeCol.setCellValueFactory(new PropertyValueFactory<>("date_time"));
         
+		// add columns to table
         table.getColumns().addAll(idCol, contentCol, authorCol, likesCol, sharesCol, date_timeCol);
 
         // convert ArrayList to ObservableList
@@ -389,38 +384,29 @@ public class DashboardController {
 		postArr.add(post);
 		
 		TableView<Post> table = makeTableView(postArr);
-        
 		return table;
 	}
 
-	// refresh tables and pie charts
-	public void refresh() {
-		postsTable = makeTableView(sns.getPosts());
-		Posts.setContent(postsTable);
+	public void sortTable(String selectedMenu, String count) {
+		try {
+				if (selectedMenu.equals("Likes")) {
+					postsTable = makeTableView(sns.topLikesPosts(count));  // bring top n posts from database
+					Posts.setContent(postsTable);  // show table on Posts tab
+					
+					sortMessage.setText("Sorted by number of Likes.");
+				}
+				else if (selectedMenu.equals("Shares")){
+					postsTable = makeTableView(sns.topSharesPosts(count));  // bring top n posts from database
+					Posts.setContent(postsTable);  // show table on Posts tab
+					
+					sortMessage.setText("Sorted by number of Shares.");
+				}				
+			} catch (NegativeNumberException | InvalidAttributeException e1) {
+				sortMessage.setText(e1.getMessage());  // display error message on screen
+			}
+	}
 
-		pieChart = distribute(categoryMenu.getText());
-		VIP.setContent(pieChart);
-	}
-	
-	public String getSelectedRowId(TableView<Post> table) {
-		String id = null;
-		TableColumn column = (TableColumn) searchedTable.getColumns().get(0);
-		Post selectedItem = (Post) searchedTable.getSelectionModel().getSelectedItem();
-		if (selectedItem != null) {
-		    // get post ID of clicked row
-			id = Integer.toString((int) column.getCellObservableValue(selectedItem).getValue());
-		}
-		return id;
-	}
-	
-	public void resetSearch() {
-		Search.setContent(null);
-		deleteBtn.setDisable(true);
-		deleteBtn.setOpacity(0.5);
-		exportBtn.setDisable(true);
-		exportBtn.setOpacity(0.5);
-	}
-	
+	// export a post to a ".csv" file by Post ID
 	public void exportCSV(String path, Post post) {
 		File csv = new File(path);
 		
@@ -444,12 +430,9 @@ public class DashboardController {
 		System.out.println("Successfully exported to '"+path+"'");
 	}
 	
+	// distribute portion of posts by category
 	public PieChart distribute(String category) {
 
-		if (category=="Category") {
-			distributeMessage.setText("Distribute portion by category.");
-			return null;
-		}
 		int low = sns.countCategory(category,0,99);
 		int medium = sns.countCategory(category,100,999);
 		int high = sns.countCategory(category,1000);
@@ -461,17 +444,58 @@ public class DashboardController {
         System.out.println("0 to 99: "+low +", 100 to 999: " + medium + ", exceeding 1000: " + high);
         
         PieChart pie = new PieChart();
-        pie.getData().addAll(dataList);
+        pie.getData().addAll(dataList);  // add data list to pie chart
 
         // set pie chart title
         pie.setTitle("Distribution of "+category+" Pie Chart");
-        
         return pie;
+	}
+
+	// refresh tables and pie charts
+	public void refresh() {
+
+		// refresh Posts tab
+		if (orderMenu.getText().equals("Order")) {
+			postsTable = makeTableView(sns.getPosts());
+			Posts.setContent(postsTable);
+		} else {
+			sortTable(orderMenu.getText(), sortCount.getText());
+		}
+
+		// refresh VIP tab
+		if (categoryMenu.getText().equals("Category"))
+			return;
+		pieChart = distribute(categoryMenu.getText());
+		VIP.setContent(pieChart);
+	}
+	
+	// get post id of selected row in table
+	public String getSelectedRowId(TableView<Post> table) {
+		String id = null;
+		TableColumn column = (TableColumn) searchedTable.getColumns().get(0);  // get column object from table
+		Post selectedItem = (Post) searchedTable.getSelectionModel().getSelectedItem();  // bring post id of selected row
+		if (selectedItem != null) {
+			id = Integer.toString((int) column.getCellObservableValue(selectedItem).getValue());  // get post ID of clicked row
+		}
+		return id;
+	}
+	
+	// reset Search tab
+	public void resetSearch() {
+		searchId.setText("");
+		Search.setContent(null);
+
+		// disable delete, export button
+		deleteBtn.setDisable(true);
+		deleteBtn.setOpacity(0.5);
+		exportBtn.setDisable(true);
+		exportBtn.setOpacity(0.5);
 	}
 	
 	public void setStage(Stage stage) { this.stage = stage; }
 	public Stage getStage() { return this.stage; }
 	
+	// view dashboard page on current stage
 	public void view(Stage stage) {
 		try {  // load Dashboard View
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardView.fxml"));
