@@ -156,7 +156,6 @@ public class SocialMedia {
 		int id = scanInputNumber("Post ID", input);
 		if (db.containsKey(id)) {
 			post = db.get(id);
-			System.out.println(post.getId()+" | "+post.getContent()+" | "+post.getAuthor()+" | "+post.getDate());
 		}
 		else
 			throw new InvalidAttributeException("This Post ID does not exist in the collection!");
@@ -215,6 +214,36 @@ public class SocialMedia {
 		}
 		return sortedPosts;
 	
+	}
+	
+	public Integer countCategory(String category, int from, int to) {
+		int count = 0;
+		
+		for (int id: db.keySet()) {
+			if (category.equals("Likes")) {
+				if (from <= db.get(id).getLikes() && db.get(id).getLikes() <= to)
+					count++;
+			} else if (category.equals("Shares")) {
+				if (from <= db.get(id).getShares() && db.get(id).getShares() <= to)
+					count++;
+			}
+		}
+		return count;
+	}
+	
+	public Integer countCategory(String category, int from) {
+		int count = 0;
+		
+		for (int id: db.keySet()) {
+			if (category.equals("Likes")) {
+				if (from <= db.get(id).getLikes())
+					count++;
+			} else if (category.equals("Shares")) {
+				if (from < db.get(id).getShares())
+					count++;
+			}
+		}
+		return count;
 	}
 	
 	public ArrayList<Post> getPosts() {

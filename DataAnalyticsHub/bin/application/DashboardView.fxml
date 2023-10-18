@@ -126,9 +126,9 @@
                                  <children>
                                     <MenuButton fx:id="orderMenu" mnemonicParsing="false" text="Order">
                                       <items>
-                                        <MenuItem fx:id="likesItem" mnemonicParsing="false" text="Likes" />
-                                          <MenuItem fx:id="sharesItem" mnemonicParsing="false" text="Shares" />
-                                          <MenuItem fx:id="resetSortMenuItem" mnemonicParsing="false" text="Reset" />
+                                        <MenuItem fx:id="likesOrder" mnemonicParsing="false" text="Likes" />
+                                          <MenuItem fx:id="sharesOrder" mnemonicParsing="false" text="Shares" />
+                                          <MenuItem fx:id="resetOrder" mnemonicParsing="false" text="Reset" />
                                       </items>
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -243,10 +243,10 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="470.0" style="-fx-border-style: solid; -fx-border-color: silver;">
                                  <children>
-                                    <MenuButton mnemonicParsing="false" text="Category">
+                                    <MenuButton fx:id="categoryMenu" mnemonicParsing="false" text="Category">
                                        <items>
-                                          <MenuItem mnemonicParsing="false" text="Likes" />
-                                          <MenuItem mnemonicParsing="false" text="Shares" />
+                                          <MenuItem fx:id="likesCategory" mnemonicParsing="false" text="Likes" />
+                                          <MenuItem fx:id="sharesCategory" mnemonicParsing="false" text="Shares" />
                                        </items>
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -269,6 +269,11 @@
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin></ScrollPane>
+                              <Button fx:id="importBtn" mnemonicParsing="false" text="Import">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
                         </VBox>
                      </children></AnchorPane>

@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -24,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -37,6 +40,7 @@ public class DashboardController {
 	private SocialMedia sns;
 	private TableView postsTable;
 	private TableView searchedTable;
+	private PieChart pieChart;
 	private final String CSVpath = "/db/posts.csv";
 	
 	@FXML
@@ -74,11 +78,11 @@ public class DashboardController {
 	@FXML
 	private MenuButton orderMenu;
 	@FXML
-	private MenuItem likesItem;
+	private MenuItem likesOrder;
 	@FXML
-	private MenuItem sharesItem;
+	private MenuItem sharesOrder;
 	@FXML
-	private MenuItem resetSortMenuItem;
+	private MenuItem resetOrder;
 	@FXML
 	private TextField sortCount;
 	@FXML 
@@ -103,6 +107,16 @@ public class DashboardController {
 	private ScrollPane VIP;
 	@FXML
 	private Tab vipTab;
+	@FXML
+	private MenuButton categoryMenu;
+	@FXML
+	private MenuItem likesCategory;
+	@FXML
+	private MenuItem sharesCategory;
+	@FXML
+	private Label distributeMessage;
+	@FXML
+	private Button importBtn;
 	
 	
 	public DashboardController(User user) { this.user = user; }
@@ -125,6 +139,30 @@ public class DashboardController {
 		postsTable = makeTableView(sns.getPosts());
 		Posts.setContent(postsTable);  // Display table
 		
+		if (user.getVip().equals("-")) {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	        alert.setTitle("Confirmation Dialog");
+	        alert.setHeaderText("Subscribe VIP");
+	        alert.setContentText("Would you like to subscribe to the application for a monthly fee of $0?");
+
+	        // "Yes"와 "No" 버튼 추가
+	        ButtonType yesButton = new ButtonType("Yes");
+	        ButtonType noButton = new ButtonType("No");
+
+	        alert.getButtonTypes().setAll(yesButton, noButton);
+
+	        // 사용자의 응답을 기다립니다.
+	        Optional<ButtonType> result = alert.showAndWait();
+
+	        if (result.isPresent() && result.get() == yesButton) {
+	            System.out.println("User clicked Yes");
+	            user.modify(user.getNumber(), user.getUserName(), user.getPassword(), 
+	            		user.getFirstName(), user.getLastName(), "vip");
+	        } else {
+	            System.out.println("User clicked No or closed the dialog");
+	            vipTab.setDisable(true);
+	        }
+		}
 		
 		// modify user information
 		modifyInfoBtn.setOnAction(e -> {
@@ -150,6 +188,8 @@ public class DashboardController {
 				postsTable = makeTableView(sns.getPosts());
 				Posts.setContent(postsTable);
 				
+				distribute(categoryMenu.getText());
+				
 			} catch (InvalidAttributeException e1) {
 				addPostMessage.setTextFill(Color.RED);
 				addPostMessage.setText(e1.getMessage());
@@ -159,17 +199,17 @@ public class DashboardController {
 		});
 		
 		// select "Likes" menu
-		likesItem.setOnAction(e -> {
+		likesOrder.setOnAction(e -> {
 			orderMenu.setText("Likes");
 		});
 		
 		// select "Shares" menu
-		sharesItem.setOnAction(e -> {
+		sharesOrder.setOnAction(e -> {
 			orderMenu.setText("Shares");
 		});
 		
 		// reset sort menu option
-		resetSortMenuItem.setOnAction(e -> {
+		resetOrder.setOnAction(e -> {
 			orderMenu.setText("Order");
 			sortCount.setText(null);
 			sortMessage.setText("Sort by Order.");
@@ -241,6 +281,7 @@ public class DashboardController {
 				postsTable = makeTableView(sns.getPosts());
 				Posts.setContent(postsTable);
 				resetSearch();
+				distribute(categoryMenu.getText());
 			} catch (NegativeNumberException | IOException | InvalidAttributeException e1) {
 				searchMessage.setText(e1.getMessage());
 			}
@@ -275,6 +316,25 @@ public class DashboardController {
 	        }
 		});
 		
+		// Distribute the portion of likes
+		likesCategory.setOnAction(e -> {
+			categoryMenu.setText("Likes");
+			distributeMessage.setText("Distribute portion by Likes.");
+			distribute("Likes");
+			VIP.setContent(pieChart);
+		
+		});
+		
+		// Distribute the portion of shares
+		sharesCategory.setOnAction(e -> {
+			categoryMenu.setText("Shares");
+			distributeMessage.setText("Distribute portion by Shares.");
+			distribute("Shares");
+			VIP.setContent(pieChart);
+			
+		});
+		
+		
 		// log out
 		logOutBtn.setOnAction(e -> {
 			user.logout();
@@ -287,7 +347,6 @@ public class DashboardController {
 	public TableView<Post> makeTableView(ArrayList<Post> posts) {
 		
 		TableView<Post> table = new TableView<>();
-		
 		
 		TableColumn<Post, Integer> idCol = new TableColumn<>("Id");
 		TableColumn<Post, String> contentCol = new TableColumn<>("Content");
@@ -363,6 +422,24 @@ public class DashboardController {
 			e.printStackTrace();
 		}
 		System.out.println("Successfully exported to '"+path+"'");
+	}
+	
+	public void distribute(String category) {
+		int low = sns.countCategory(category,0,99);
+		int medium = sns.countCategory(category,100,999);
+		int high = sns.countCategory(category,1000);
+				
+		ArrayList<PieChart.Data> dataList = new ArrayList<>();
+        dataList.add(new PieChart.Data("0 to 99", low));
+        dataList.add(new PieChart.Data("100 to  999", medium));
+        dataList.add(new PieChart.Data("exceeding 1000", high));
+        System.out.println(low +" " + medium + " " + high);
+        
+        pieChart = new PieChart();
+        pieChart.getData().addAll(dataList);
+
+        // set pie chart title
+        pieChart.setTitle("Distribution of "+category+" Pie Chart");
 	}
 	
 	public void setStage(Stage stage) { this.stage = stage; }

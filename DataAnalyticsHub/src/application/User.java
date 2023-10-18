@@ -36,7 +36,7 @@ public class User {
 				"pass", 
 				"Yeonsu", 
 				"Sim", 
-				"-"
+				"vip"
 		};
 		db.insert(tname, elements);
 	}
@@ -123,11 +123,11 @@ public class User {
 	public String getVip() { return this.vip; }
 	
 	public void setNumber(String number) { this.number = number; }
-	public void setUserName(String username) { this.username = username; }
-	public void setPassword(String password) { this.password = password; }
-	public void setFirstName(String firstname) { this.firstname = firstname; }
+	public void setUserName(String username) { this.username = username; } 
+	public void setPassword(String password) { this.password = password; } 
+	public void setFirstName(String firstname) { this.firstname = firstname; } 
 	public void setLastName(String lastname) { this.lastname = lastname; }
-	public void setVip(String vip) { this.vip= vip; }
+	public void setVip(String vip) { this.vip= vip; } 
 }
 
 // Exceptions
