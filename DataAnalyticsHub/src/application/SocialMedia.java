@@ -9,8 +9,8 @@ import java.nio.file.Path;
 
 public class SocialMedia {
 
-	Path path = FileSystems.getDefault().getPath("");
-	final String basePath = path.toAbsolutePath().toString();
+	private final Path path = FileSystems.getDefault().getPath("");
+	private final String basePath = path.toAbsolutePath().toString();
 	private String CSVpath = "";
 	public LinkedHashMap<Integer,Post> db;
 	
@@ -219,7 +219,7 @@ public class SocialMedia {
 	
 	}
 	
-	public Integer countCategory(String category, int from, int to) {
+	public int countCategory(String category, int from, int to) {
 		int count = 0;
 		
 		for (int id: db.keySet()) {
@@ -234,7 +234,7 @@ public class SocialMedia {
 		return count;
 	}
 	
-	public Integer countCategory(String category, int from) {
+	public int countCategory(String category, int from) {
 		int count = 0;
 		
 		for (int id: db.keySet()) {

@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseModel {
 	
-	private String url = "jdbc:sqlite:db/Database.db";
+	private final String url = "jdbc:sqlite:db/Database.db";
 
 	public DatabaseModel() {
 		try {
