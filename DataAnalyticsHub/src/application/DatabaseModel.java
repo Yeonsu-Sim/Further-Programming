@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseModel {
 	
-	private final String url = "jdbc:sqlite:db/Database.db";
+	private final String url = "jdbc:sqlite:db/Database.db";  // path of database
 
 	public DatabaseModel() {
 		try {
@@ -17,8 +17,8 @@ public class DatabaseModel {
 		}
 	}
 	
+	// connect to database
 	public Connection connect() {
-		
 		Connection con = null;  // Connector
 		
 		try {
@@ -29,6 +29,7 @@ public class DatabaseModel {
 		return con;
 	}
 	
+	// create new table if table of tname doesn't exist
 	public void createNewTable(String tname, String[] columns) {
 
 		// SQL statement for creating a new table
@@ -81,6 +82,7 @@ public class DatabaseModel {
 		return value;
 	}
 	
+	// insert new value into database
 	public void insert(String tname, String[] elements) {
 
 		// SQL statement for inserting a value
@@ -99,6 +101,7 @@ public class DatabaseModel {
         }
 	}
 	
+	// update elements of database
 	public void update(String tname, String[] columns, String[] elements) {
 		
 		// SQL statement for updating a value
@@ -117,6 +120,7 @@ public class DatabaseModel {
         }
 	}
 	
+	// get last column value of database
 	public String getLastElement(String tname, String column) {
 		// SQL statement for getting a lately added value
 		String value = "";

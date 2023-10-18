@@ -18,21 +18,17 @@ public class SignupController {
 	public SignupController(User user) { this.user = user; }
 	public User getUer() { return this.user; }
 	
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField password;
-	@FXML
-	private TextField firstname;
-	@FXML
-	private TextField lastname;
+	@FXML private TextField username;
+	@FXML private TextField password;
+	@FXML private TextField firstname;
+	@FXML private TextField lastname;
 
-	@FXML
-	private Button btn;
+	@FXML private Button btn;
 	
 	@FXML
 	public void initialize() {
 		
+		// Sign up and update database
 		btn.setOnAction(e -> {
 			String id = username.getText();
 			String pw = password.getText();
@@ -40,11 +36,10 @@ public class SignupController {
 			String lname = lastname.getText();
 			
 			try {
-				user.signup(id, pw, fname, lname);
+				user.signup(id, pw, fname, lname);  // sign up user
 				
 				System.out.println("Successfully signed up.");
-				// Close current Stage
-				this.stage.close();
+				this.stage.close();  // Close current Stage
 			} catch (InvalidUserNameException e1) {
 				username.setText("");
 				username.setPromptText(e1.getLocalizedMessage());
@@ -61,7 +56,7 @@ public class SignupController {
 		});
 	}
 
-
+	// view sign up page on a new stage
 	public void view() {
 		try {  // load Signup View
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("SignupView.fxml"));

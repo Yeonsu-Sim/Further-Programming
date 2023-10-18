@@ -20,6 +20,7 @@ public class SocialMedia {
 		readCSV(this.CSVpath);
 	}
 	
+	// add Posts in CSV File from CSVpath to db
 	public void readCSV(String CSVpath) throws FileNotFoundException, InvalidAttributeException, IOException {
 		File csv = new File(CSVpath);
 		String line = "";
@@ -46,6 +47,7 @@ public class SocialMedia {
 		}
 	}
 	
+	// export db to CSV File
 	public void writeCSV(String CSVpath) throws IOException{
 		File csv = new File(CSVpath);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(csv));
@@ -71,7 +73,7 @@ public class SocialMedia {
 		}
 	}
 	
-	// Add post
+	// Add post to db
 	public void addPost(String idStr, String content, String author, String likes, String shares, String date_time) 
 		throws InvalidAttributeException, IOException {
 		
@@ -142,6 +144,7 @@ public class SocialMedia {
 		writeCSV(CSVpath);
 	}
 	
+	// delete post from db
 	public void deletePost(String input) throws IOException, NegativeNumberException, InvalidAttributeException{
 		int postId = scanInputNumber("postId", input);
 		if (db.containsKey(postId)) {
@@ -154,6 +157,7 @@ public class SocialMedia {
 			throw new InvalidAttributeException("Sorry this post ID does not exist in the collection!");
 	}
 	
+	// retrieve post from db
 	public Post retrievePost(String input) throws NegativeNumberException, InvalidAttributeException {
 		Post post;
 		int id = scanInputNumber("Post ID", input);
@@ -165,6 +169,7 @@ public class SocialMedia {
 		return post;
 	}
 	
+	// get input number of top likes posts
 	public ArrayList<Post> topLikesPosts(String input) throws NegativeNumberException, InvalidAttributeException {
 		int number = scanInputNumber("count", input);
 		
@@ -189,9 +194,9 @@ public class SocialMedia {
 				break;
 		}
 		return sortedPosts;
-	
 	}
 	
+	// get input number of top shares posts
 	public ArrayList<Post> topSharesPosts(String input) throws NegativeNumberException, InvalidAttributeException {
 		int number = scanInputNumber("count", input);
 		
@@ -216,9 +221,9 @@ public class SocialMedia {
 				break;
 		}
 		return sortedPosts;
-	
 	}
 	
+	// get number of category
 	public int countCategory(String category, int from, int to) {
 		int count = 0;
 		
@@ -234,6 +239,7 @@ public class SocialMedia {
 		return count;
 	}
 	
+	// method override (when there's no lower limit)
 	public int countCategory(String category, int from) {
 		int count = 0;
 		
@@ -249,6 +255,7 @@ public class SocialMedia {
 		return count;
 	}
 	
+	// get all posts from db
 	public ArrayList<Post> getPosts() {
 		ArrayList<Post> posts = new ArrayList<>();
 		int count = 0;

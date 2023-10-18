@@ -17,6 +17,7 @@ public class User {
 		db = new DatabaseModel();
 	}
 	
+	// initial setting
 	public void initialize() {
 		// create a new table "users"
 		String[] columns = {
@@ -41,6 +42,7 @@ public class User {
 		db.insert(tname, elements);
 	}
 	
+	// check validation of id and pw for log in
 	public String login(String id, String pw) {
 		if (db.exist(tname,"username", id)) {
 			if (db.getElement(tname,"password",id).equals(pw)) {
@@ -52,10 +54,12 @@ public class User {
 		return "This username does not exist.";
 	}
 	
+	// log out
 	public void logout() {
-		this.setInfo();
+		this.setInfo();  // reset all user fields
 	}
 	
+	// check validation for sign up
 	public void signup(String id, String pw, String fname, String lname) 
 		throws InvalidUserNameException, InvalidPasswordException, InvalidFirstNameException, InvalidLastNameException {
 		
@@ -70,12 +74,13 @@ public class User {
 		else if (lname.equals(""))
 			throw new InvalidLastNameException("Please insert a valid Last name");
 		
-		int lastNumber = Integer.parseInt(db.getLastElement(tname, "number")); 
+		int lastNumber = Integer.parseInt(db.getLastElement(tname, "number"));  // to make new number of user
 	
 		String[] elements = {Integer.toString(++lastNumber), id, pw, fname, lname, "-"};
 		db.insert(tname, elements);
 	}
 	
+	// confirm validation for modifying user information
 	public void modify(String num, String id, String pw, String fname, String lname, String vip) {		
 		
 		if (db.exist(tname, "username", id) && !id.equals(this.username))
@@ -93,9 +98,10 @@ public class User {
 		String[] elements = {num, id, pw, fname,lname, vip};
 		db.update(tname, columns, elements);
 		
-		this.setInfo(id);
+		this.setInfo(id);  // refresh all user fields
 	}
 	
+	// refresh all user fields
 	public void setInfo(String username) {
 		this.setUserName(username);
 		this.setNumber(db.getElement(tname, "number", username));
@@ -105,6 +111,7 @@ public class User {
 		this.setVip(db.getElement(tname, "vip", username));
 	}
 	
+	// reset all user fields
 	public void setInfo() {
 		this.setUserName(null);
 		this.setPassword(null);
@@ -113,7 +120,6 @@ public class User {
 		this.setNumber(null);
 		this.setVip(null);
 	}
-	
 	
 	public String getNumber() { return this.number; }
 	public String getUserName() { return this.username; }

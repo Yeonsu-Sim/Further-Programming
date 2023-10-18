@@ -19,17 +19,12 @@ public class ModifyInfoController {
 	public ModifyInfoController(User user) { this.user = user; }
 	public User getUer() { return this.user; }
 	
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField password;
-	@FXML
-	private TextField firstname;
-	@FXML
-	private TextField lastname;
+	@FXML private TextField username;
+	@FXML private TextField password;
+	@FXML private TextField firstname;
+	@FXML private TextField lastname;
 
-	@FXML
-	private Button btn;
+	@FXML private Button btn;
 	
 	@FXML
 	public void initialize() {
@@ -39,6 +34,7 @@ public class ModifyInfoController {
 		firstname.setText(user.getFirstName());
 		lastname.setText(user.getLastName());
 		
+		// modify user information and update database
 		btn.setOnAction(e -> {
 			
 			try {
@@ -50,10 +46,11 @@ public class ModifyInfoController {
 				String fname = firstname.getText();
 				String lname = lastname.getText();
 				
-				user.modify(num, id, pw, fname, lname, vip);
+				user.modify(num, id, pw, fname, lname, vip);  // modify user information
 				
-				// Close current Stage
-				this.stage.close();
+				this.stage.close();  // Close current Stage
+
+				// reload page on primaryStage
 				DashboardController dashboardController = new DashboardController(this.user);
 				dashboardController.view(primaryStage);
 				
@@ -73,7 +70,7 @@ public class ModifyInfoController {
 		});
 	}
 
-
+	// view modify page on a new stage
 	public void view(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		try {  // load Signup View

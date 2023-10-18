@@ -20,21 +20,16 @@ public class LoginController {
 	public LoginController(User user) { this.user = user; }
 	public User getUser() { return this.user; } 
 
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField password;
-	@FXML
-	
-	private Button btn;
-	@FXML
-	private Label signup;
-	@FXML
-	private Label loginMessage;
+	@FXML private TextField username;
+	@FXML private TextField password;
+	@FXML private Button btn;
+	@FXML private Label signup;
+	@FXML private Label loginMessage;
 
-	@FXML
+	@FXML 
 	public void initialize() {
 		
+		// log in
 		btn.setOnAction(e -> {
 			String id = username.getText();
 			String pw = password.getText();
@@ -60,17 +55,18 @@ public class LoginController {
 			
 		});
 		
+		// view sign up page on a new stage
 		signup.setOnMousePressed(e -> {
 			SignupController signupController = new SignupController(user);
 			signupController.view();
 		});
-		
 		
 	}
 
 	 public void setStage(Stage stage) { this.stage = stage; }
 	 public Stage getStage() { return this.stage; }
 
+	// view login page on stage
 	public void view(Stage stage) {
 		try {  // load Login View
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
