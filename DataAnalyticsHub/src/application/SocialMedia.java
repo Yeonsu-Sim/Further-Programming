@@ -173,7 +173,7 @@ public class SocialMedia {
 	public ArrayList<Post> topLikesPosts(String input) throws NegativeNumberException, InvalidAttributeException {
 		int number = scanInputNumber("count", input);
 		
-		if (number <0 || number > db.size()) {
+		if (number > db.size()) {
 			System.out.println("Only "+db.size()+" posts exist in the collection. Showing all of them.");
 			number = db.size();
 		}
@@ -189,9 +189,9 @@ public class SocialMedia {
 		
 		int count = 0;
 		for (int id : sorted_temp.keySet()) {
-			sortedPosts.add(db.get(id));		
-			if (++count == number) 
+			if (count++ == number) 
 				break;
+			sortedPosts.add(db.get(id));		
 		}
 		return sortedPosts;
 	}
@@ -216,9 +216,9 @@ public class SocialMedia {
 		
 		int count = 0;
 		for (int id : sorted_temp.keySet()) {
-			sortedPosts.add(db.get(id));		
-			if (++count == number) 
+			if (count++ == number) 
 				break;
+			sortedPosts.add(db.get(id));		
 		}
 		return sortedPosts;
 	}

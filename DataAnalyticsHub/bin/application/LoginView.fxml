@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -20,10 +19,13 @@
             <Insets />
          </VBox.margin>
          <children>
-            <Label fx:id="loginMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="-3.0" prefHeight="38.0" prefWidth="250.0" text="Please insert your Username and Password." textAlignment="CENTER" wrapText="true">
+            <Label fx:id="loginMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="-5.0" text="Please insert your Username and Password." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
             </Label>
          </children>
       </Pane>
@@ -48,13 +50,13 @@
             <TextField fx:id="username" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="btn" mnemonicParsing="false" text="Log in" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label text="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label text="Username" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label fx:id="signup" text="Sign up" textFill="GREY" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label text="Password" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label fx:id="signup" text="Sign up" textFill="GREY" underline="true" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
