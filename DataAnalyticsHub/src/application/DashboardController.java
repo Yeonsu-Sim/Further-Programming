@@ -102,6 +102,10 @@ public class DashboardController {
 		firstname.setText(user.getFirstName());
 		lastname.setText(user.getLastName());
 		
+		// fix the author of added post further
+		author.setText(user.getUserName());
+		author.setDisable(true);
+		
 		// make table of Posts tab
 		postsTable = makeTableView(sns.getPosts());
 		Posts.setContent(postsTable);  // Display table
@@ -171,6 +175,7 @@ public class DashboardController {
 		// sort posts by menu option
 		sortBtn.setOnAction(e -> {
 			sortTable(orderMenu.getText(), sortCount.getText());
+			sortMessage.setTextFill(Color.BLACK);
 		});
 		
 		// retrieve post by Post ID
@@ -198,8 +203,11 @@ public class DashboardController {
 						exportBtn.setOpacity(1);
 					}
 				});
+				searchMessage.setText("Searched.");
+				searchMessage.setTextFill(Color.BLACK);
 			} catch (NegativeNumberException | InvalidAttributeException e1) {
 				searchMessage.setText(e1.getMessage());  // display error message on screen
+				searchMessage.setTextFill(Color.RED);
 			}
 		});
 		
@@ -216,6 +224,9 @@ public class DashboardController {
 			String id = getSelectedRowId(searchedTable);
 			
 			try {
+				if (!sns.retrievePost(id).getAuthor().equals(user.getUserName()))
+					throw new InvalidAttributeException("Don't have permission to delete this post.");
+				
 				sns.deletePost(id);  // delete post from database
 
 				resetSearch();  // reset Search tab
@@ -224,6 +235,7 @@ public class DashboardController {
 
 			} catch (NegativeNumberException | InvalidAttributeException e1) {
 				searchMessage.setText(e1.getMessage());  // display error message on screen
+				searchMessage.setTextFill(Color.RED);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
@@ -252,6 +264,7 @@ public class DashboardController {
 					exportCSV(path, sns.retrievePost(id));
 				} catch (NegativeNumberException | InvalidAttributeException e1) {
 					searchMessage.setText(e1.getMessage());
+					searchMessage.setTextFill(Color.RED);
 				}
 	        } else {
 	            System.out.println("No directory selected.");
@@ -297,9 +310,11 @@ public class DashboardController {
 	            try {
 					sns.readCSV(path);
 					importMessage.setText("Imported.");
+					importMessage.setTextFill(Color.BLACK);
 					System.out.println("The CSV File has been imported to the collection!");
 				} catch (InvalidAttributeException | FileNotFoundException e1) {
 					importMessage.setText(e1.getMessage());
+					importMessage.setTextFill(Color.RED);
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
@@ -403,6 +418,7 @@ public class DashboardController {
 				}				
 			} catch (NegativeNumberException | InvalidAttributeException e1) {
 				sortMessage.setText(e1.getMessage());  // display error message on screen
+				sortMessage.setTextFill(Color.RED);
 			}
 	}
 
@@ -484,6 +500,8 @@ public class DashboardController {
 	public void resetSearch() {
 		searchId.setText("");
 		Search.setContent(null);
+		searchMessage.setText("Search by Post ID");
+		searchMessage.setTextFill(Color.BLACK);
 
 		// disable delete, export button
 		deleteBtn.setDisable(true);
