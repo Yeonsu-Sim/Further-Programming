@@ -18,6 +18,7 @@
     <li> Open Eclipse
     <li> Go to [file] -> [Open Projects from File System...] -> [Directory...]
     <li> Select unziped file of DataAnalyticsHub.zip
+    <li> Set JavaFx Library Environment as a 'Module Path' in Build Path Configuration
     <li> Run application.Main in /src folder
 </ol>
 
